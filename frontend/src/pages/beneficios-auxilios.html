@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benefícios e Auxílios - AGR | Portal do Colaborador</title>
+  <meta name="description" content="Informações sobre benefícios, auxílios e vantagens para servidores da AGR.">
+  <meta name="keywords" content="benefícios, auxílios, vantagens, servidor público, AGR, colaborador">
+  <meta name="author" content="Agência Goiana de Regulação">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#4299e1">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.agr.go.gov.br/beneficios-auxilios">
+  <meta property="og:title" content="Benefícios e Auxílios - AGR | Portal do Colaborador">
+  <meta property="og:description" content="Informações sobre benefícios, auxílios e vantagens para servidores da AGR.">
+  <meta property="og:image" content="https://github.com/tavysmikael/colaboradoragr/blob/35dd20706c02d12cf7c279e4f4f27f98cfa9a11c/logo-azul.png?raw=true">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="Banners/logo-azul.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="Banners/logo-azul.png">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+</head>
+<body>
+  <!-- Loading indicator -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Carregando...</p>
+  </div>
+
+  <header class="banner" role="banner">
+    <div class="header-left">
+      <img id="main-logo" 
+          src="https://raw.githubusercontent.com/tavysmikael/colaboradoragr/bc424350bb2fe99f14035e253130cd192bfdbf7a/logocompleto.webp" 
+          alt="Logo completa da Agência Goiana de Regulação" 
+          class="logo" tabindex="0">
+    </div>
+    <div class="header-right">
+      <nav class="nav-banner" aria-label="Navegação principal">
+        <a href="index.html" class="nav-btn" aria-label="Início" tabindex="0">INÍCIO</a>
+        <button class="nav-btn" type="button" aria-label="Projetos" tabindex="0">PROJETOS</button>
+        <button class="nav-btn" type="button" aria-label="Pessoas" tabindex="0">PESSOAS</button>
+      </nav>
+      <a href="#menu" class="login-icon" id="menuHamburger" title="Menu" tabindex="0" aria-label="Abrir menu" aria-expanded="false">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="6" width="28" height="2" rx="1" fill="currentColor"/>
+          <rect y="13" width="28" height="2" rx="1" fill="currentColor"/>
+          <rect y="20" width="28" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </a>
+      <div class="menu-dropdown" id="menuDropdown" aria-label="Menu de opções" role="menu">
+        <button onclick="handleLogin()" aria-label="Login" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 12H3M12 5l7 7-7 7"/></svg>
+          Login
+        </button>
+        <button onclick="toggleDarkMode()" aria-label="Alternar modo escuro" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          Modo Escuro
+        </button>
+        <button onclick="showNotifications()" aria-label="Notificações" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Notificações
+        </button>
+      </div>
+    </div>
+  </header>
+  <hr class="custom-hr" />
+  <div class="voltar-container">
+    <button class="btn-voltar-fixo" onclick="window.history.back()" title="Voltar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Navegação breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Início</a></li>
+        <li class="breadcrumb-item" aria-current="page">Benefícios e Auxílios</li>
+      </ol>
+    </nav>
+  </div>
+  <main id="main-content" role="main">
+    <div class="central">
+      <h1 class="main-title">Benefícios e Auxílios</h1>
+      <br><p style="text-align: center;">Acesse informações sobre seus benefícios e auxílios como colaborador da AGR.</p>
+    </div>
+  
+    <section class="accordion" aria-label="Mais informações">
+    
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          Assitência Pré-Escolar
+        </button>
+        
+        <div class="accordion-content">
+          <p>
+            Será pago o auxílio-funeral em valor correspondente a 5 (cinco) vezes o menor vencimento de cargo de provimento efetivo dos quadros estaduais com carga horária de 40 (quarenta) horas semanais, à família do servidor que falecer, ainda que aposentado ou em disponibilidade, horária de 40 (quarenta) horas semanais. O Benefício pode ser pago a qualquer pessoa que tenha sido responsável pelo sepultamento.
+          </p>
+        </div>
+      </div>    
+    
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          Auxílio Alimentação
+        </button>
+        
+        <div class="accordion-content">
+          <p>
+            No Estado de Goiás, por meio da Lei nº 19.951/2017, os servidores que percebem remuneração de até R$ 5.508,00  reais tem direito à um auxílio-alimentação no valor de R$500,00 mensais.          </p>
+          <p>
+            O auxílio-alimentação destina-se à cobertura de despesas com alimentação do servidor e tem caráter indenizatório, não se incorporando, em qualquer hipótese, a sua remuneração mensal, caracterizando-se como rendimento não-tributável, sem a incidência de contribuição previdenciária, não sendo computado para efeito de cálculo de 13º (décimo terceiro) salário.          
+          </p>
+          
+          <h4>Saiba mais:</h4>
+          <ul>
+            <li>
+              <a href="https://legisla.casacivil.go.gov.br/api/v2/pesquisa/legislacoes/99826/pdf" target="_blank" class="inline-link">
+                legisla.casacivil.go.gov.br
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          Clube de Desconto
+        </button>
+        
+        <div class="accordion-content">
+          <p>
+            O Clube de Desconto do Servidor é um programa criado pelo Poder Executivo do Estado de Goiás, representado pela Secretaria de Estado da Administração -SEAD, com o objetivo de proporcionar, por meio de parcerias, benefícios e vantagens aos Servidores Públicos do Estado.        
+          </p>
+          <p>
+            O programa conta com mais de duzentas (200) parcerias nos mais variados ramos: 
+          </p>
+          <ul>
+            <li><strong>Saúde e beleza;</strong></li>
+            <li><strong>Alimentação;</strong></li>
+            <li><strong>Educação;</strong></li>
+            <li><strong>Lazer;</strong></li>
+            <li><strong>Veículos;</strong></li>
+            <li><strong>Vestuários;</strong></li>
+            <li><strong>Calçados;</strong></li>
+            <li><strong>Artigos para o lar;</strong></li>
+            <li><strong>Dentre outros.</strong></li>
+          </ul>
+          <p>
+            Para aproveitar os descontos, o servidor deve apresentar, no ato da compra, o último contracheque e a carteira de identidade ou documento oficial com foto. 
+          </p>
+          
+          <h4>Saiba mais:</h4>
+          <ul>
+            <li>
+              <a href="https://www.portaldoservidor.go.gov.br/direitos-e-beneficios/clube-de-desconto.html" target="_blank" class="inline-link">
+                www.portaldoservidor.go.gov.br
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          Auxílio Funeral
+        </button>
+        
+        <div class="accordion-content">
+          <p>
+            Será pago o auxílio-funeral em valor correspondente a 5 (cinco) vezes o menor vencimento de cargo de provimento efetivo dos quadros estaduais com carga horária de 40 (quarenta) horas semanais, à família do servidor que falecer, ainda que aposentado ou em disponibilidade, horária de 40 (quarenta) horas semanais. O Benefício pode ser pago a qualquer pessoa que tenha sido responsável pelo sepultamento.          </p>
+          </p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          Consignação
+        </button>
+        
+        <div class="accordion-content">
+          <p>
+            É um tipo de empréstimo, também conhecido como crédito consignado, que tem como principal diferença a forma de pagamento: todo mês, as parcelas da dívida são descontadas do salário do servidor, automaticamente.             
+          </p>
+          
+          <h4>Saiba mais:</h4>
+          <ul>
+            <li>
+              <a href="https://www.portaldoservidor.go.gov.br/direitos-e-beneficios/consignacoes.html" target="_blank" class="inline-link">
+                portaldoservidor.go.gov.br
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          Ipasgo - Saúde
+        </button>
+        
+        <div class="accordion-content">
+          <p>
+            A seguridade social do servidor público estadual compreende um conjunto integrado de ações destinadas a assegurar direitos relativos à saúde, à previdência e à assistência social. A assistência à saúde do servidor ativo ou inativo, de seu cônjuge, companheiro, dependentes e do pensionista compreende a assistência médica, hospitalar, odontológica, psicológica e farmacêutica.       
+          </p>
+          <p>
+            O IPASGO - Instituto de Assistência dos Servidores Públicos do Estado de Goiás é responsável pela administração de serviços, programas especiais e de ações que visam à promoção e assistência à saúde aos servidores públicos do Estado de Goiás e dos servidores públicos de organismos que mantém convênio com o Instituto. 
+          </p>
+          
+          <h4>Saiba mais:</h4>
+          <ul>
+            <li>
+              <a href="https://www.ipasgo.go.gov.br/files/Manual/ManualIpasgo2.pdf" target="_blank" class="inline-link">
+                ipasgo.go.gov.br
+              </a>
+            </li>
+          </ul>
+          <h4>Lei / Normativa:</h4>
+          <ul>
+            <p> 
+              - Lei nº 20.756 /2020
+            </p>
+            <li>
+              <a href="https://legisla.casacivil.go.gov.br/api/v2/pesquisa/legislacoes/100979/pdf" target="_blank" class="inline-link">
+                ipasgo.go.gov.br
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+    <section class="intro-section">
+      <div class="alert alert-warning">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <div>
+          <strong>Importante:</strong> Mantenha seus dados de acesso seguros e não compartilhe com terceiros.
+        </div>
+      </div>
+    </section>
+  </main>   
+  <footer class="footer-banner" aria-label="Rodapé" role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Informações e Contato</h3>
+        <p>Telefone: (62) 3226-6436</p>
+        <p>WhatsApp: (62) 98480-7353</p>
+        <p>Email: ouvidoria.agr@goias.gov.br</p>
+      </div>
+      <div class="footer-section">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="https://www.goias.gov.br" target="_blank" rel="noopener">Portal do Governo</a></li>
+          <li><a href="https://www.goias.gov.br/agr/" target="_blank" rel="noopener">Site Oficial AGR</a></li>
+          <li><a href="https://www.transparencia.go.gov.br" target="_blank" rel="noopener">Transparência</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Redes Sociais</h3>
+        <div class="footer-social">
+        <a href="https://facebook.com" target="_blank" title="Facebook" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com" target="_blank" title="Instagram" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5zm4.25 3.75a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 1.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-2.25a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com" target="_blank" title="YouTube" aria-label="YouTube">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+        <a href="https://x.com" target="_blank" title="X" aria-label="X">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://tiktok.com" target="_blank" title="TikTok" aria-label="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-2.245 6.17 6.17 0 0 1-.828-3.441h-2.862v13.552a2.913 2.913 0 0 1-2.847 2.966 2.895 2.895 0 0 1-2.932-2.84c0-1.506 1.227-2.742 2.74-2.877V8.68c-2.925.139-5.344 2.5-5.344 5.446 0 3.018 2.45 5.467 5.468 5.467 3.018 0 5.468-2.449 5.468-5.467V7.487a8.75 8.75 0 0 0 4.106 1.022V6.686z"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <div class="copyright-bar">
+    © Copyright 2025, Agência Goiana de Regulação - All Rights Reserved
+  </div>
+  <div class="floating-buttons">
+    <button id="dark-mode-btn" title="Alternar Modo Escuro" aria-label="Alternar Modo Escuro" tabindex="0">
+      <span id="dark-mode-icon">&#9789;</span>
+    </button>
+    <button id="back-to-top-btn" title="Voltar ao topo" aria-label="Voltar ao topo" tabindex="0" style="display: none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Notification Toast -->
+  <div id="notification-toast" class="notification-toast" role="alert" aria-live="polite"></div>
+
+  <script>
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+      hideLoadingOverlay();
+      setupBackToTop();
+      setupNotifications();
+      setupGamification();
+      setupAnalytics();
+      registerServiceWorker();
+    });
+
+    // Page-specific functions
+    function viewFoodAllowance() {
+      showNotification('Carregando detalhes do vale refeição...', 'info');
+    }
+
+    function viewPartnerRestaurants() {
+      showNotification('Abrindo restaurantes conveniados...', 'info');
+    }
+
+    function viewTransportAllowance() {
+      showNotification('Carregando detalhes do vale transporte...', 'info');
+    }
+
+    function viewParking() {
+      showNotification('Abrindo informações de estacionamento...', 'info');
+    }
+
+    function viewHealthPlan() {
+      showNotification('Carregando detalhes do plano de saúde...', 'info');
+    }
+
+    function viewNetwork() {
+      showNotification('Abrindo rede credenciada...', 'info');
+    }
+
+    function viewGympass() {
+      showNotification('Carregando detalhes do Gympass...', 'info');
+    }
+
+    function viewCorporateDiscounts() {
+      showNotification('Abrindo descontos corporativos...', 'info');
+    }
+
+    function requestBenefit() {
+      showNotification('Abrindo formulário de solicitação...', 'info');
+    }
+
+    function changeBenefit() {
+      showNotification('Carregando formulário de alteração...', 'info');
+    }
+
+    function contactHR() {
+      showNotification('Abrindo contato com RH...', 'info');
+    }
+
+    // MENU SUSPENSO HAMBURGER
+    const menuHamburger = document.getElementById('menuHamburger');
+    const menuDropdown = document.getElementById('menuDropdown');
+    document.addEventListener('click', function(e) {
+      if (menuDropdown.classList.contains('show') && !menuDropdown.contains(e.target) && e.target !== menuHamburger && !menuHamburger.contains(e.target)) {
+        menuDropdown.classList.remove('show');
+      }
+    });
+    menuHamburger.addEventListener('click', function(e) {
+      e.preventDefault();
+      menuDropdown.classList.toggle('show');
+    });
+    menuHamburger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuDropdown.classList.toggle('show');
+      }
+    });
+
+   // DARK MODE ICON SWITCH
+   function updateDarkModeIcon() {
+      const icon = document.getElementById('dark-mode-icon');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.innerHTML = '&#9728;'; // sun
+      } else {
+        icon.innerHTML = '<svg width="30" height="30" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>' // moon
+      }
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      menuDropdown.classList.remove('show');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+      updateDarkModeIcon();
+    }
+    // Persistência do modo escuro
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    updateDarkModeIcon();
+    // Botão flutuante de dark mode
+    document.getElementById('dark-mode-btn').addEventListener('click', function(e) {
+      toggleDarkMode();
+    });
+
+    // Acessibilidade: navegação por teclado
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        document.body.classList.add('user-is-tabbing');
+      }
+    });
+    document.addEventListener('mousedown', function() {
+      document.body.classList.remove('user-is-tabbing');
+    });
+
+    // Performance: Hide loading overlay when page is ready
+    window.addEventListener('load', function() {
+      const loadingOverlay = document.getElementById('loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => {
+          loadingOverlay.style.display = 'none';
+        }, 300);
+      }
+    });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('back-to-top-btn');
+    if (backToTopBtn) {
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.style.display = 'block';
+        } else {
+          backToTopBtn.style.display = 'none';
+        }
+      });
+
+      backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+
+    // Notification system
+    function showNotification(message, type = 'info') {
+      const toast = document.getElementById('notification-toast');
+      if (toast) {
+        toast.textContent = message;
+        toast.className = `notification-toast ${type}`;
+        toast.style.display = 'block';
+        
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // Analytics: Track page views
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_view', {
+        'page_title': 'Benefícios e Auxílios',
+        'page_location': window.location.href
+      });
+    }
+
+    // Track user interactions
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.icone-link')) {
+        const linkText = e.target.closest('.icone-link').querySelector('span').textContent;
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', {
+            'event_category': 'navigation',
+            'event_label': linkText
+          });
+        }
+      }
+    });
+
+    // Service Worker Registration for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const isExpanded = header.getAttribute('aria-expanded') === 'true';
+        const content = header.nextElementSibling;
+
+        // Collapse all other items
+        accordionHeaders.forEach(otherHeader => {
+          if (otherHeader !== header) {
+            otherHeader.setAttribute('aria-expanded', 'false');
+            otherHeader.nextElementSibling.classList.remove('show');
+          }
+        });
+
+        // Toggle the clicked item
+        header.setAttribute('aria-expanded', !isExpanded);
+        content.classList.toggle('show');
+      });
+    });
+  });
+  </script>
+</body>
+</html> 

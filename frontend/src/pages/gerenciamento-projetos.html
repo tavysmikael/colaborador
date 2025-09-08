@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento de Projetos - AGR | Portal do Colaborador</title>
+  <meta name="description" content="Sistema de gerenciamento de projetos da AGR. Organize tarefas, acompanhe progresso e gerencie projetos por andar e gerência.">
+  <meta name="keywords" content="gerenciamento projetos, kanban, tarefas, AGR, colaborador, projetos">
+  <meta name="author" content="Agência Goiana de Regulação">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#4299e1">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.agr.go.gov.br/gerenciamento-projetos">
+  <meta property="og:title" content="Gerenciamento de Projetos - AGR | Portal do Colaborador">
+  <meta property="og:description" content="Sistema de gerenciamento de projetos da AGR. Organize tarefas e acompanhe progresso.">
+  <meta property="og:image" content="https://github.com/tavysmikael/colaboradoragr/blob/35dd20706c02d12cf7c279e4f4f27f98cfa9a11c/logo-azul.png?raw=true">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="Banners/logo-azul.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="Banners/logo-azul.png">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+  
+  <style>
+    :root {
+      --primary-color: #3b82f6; /* Vibrant blue for modern feel */
+      --secondary-color: #6b7280;
+      --bg-color: #f9fafb;
+      --card-bg: #ffffff;
+      --border-color: #e5e7eb;
+      --accent-color: #10b981; /* Green for success/actions */
+      --text-color: #1f2937;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --success-color: #10b981;
+      --mocha-mousse: #a57c65; /* Warm tone inspired by 2025 Pantone */
+      --neon-glow: #60a5fa; /* For dark mode accents */
+    }
+
+    .dark-mode {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #475569;
+      --text-color: #f1f5f9;
+      --secondary-color: #94a3b8;
+      --primary-color: #60a5fa;
+      --accent-color: #34d399;
+      --error-color: #f87171;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      font-size: 16px;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary-color);
+      color: white;
+      padding: 8px;
+      z-index: 1000;
+      transition: top 0.3s ease;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    .kanban-container {
+      padding: 32px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    
+    .kanban-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    
+    .kanban-title {
+      font-family: 'Playfair Display', serif; /* Bold expressive serif for headlines */
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--text-color);
+      margin: 0;
+      letter-spacing: -0.025em;
+    }
+    
+    .kanban-controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .filter-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .filter-select, .search-input {
+      padding: 10px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--text-color);
+      font-size: 14px;
+      width: 200px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .filter-select:focus, .search-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      outline: none;
+    }
+    
+    .btn-primary svg,
+    .add-task-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.5; /* Um pouco mais grosso para visibilidade */
+      transition: stroke 0.3s ease;
+    }
+
+    .btn-primary:hover svg,
+    .add-task-btn:hover svg {
+      stroke: currentColor; /* Garante que o ícone herda a cor do texto no hover */
+    }
+
+    .dark-mode .btn-primary svg,
+    .dark-mode .add-task-btn svg {
+      stroke: var(--text-color); /* Adapta ao modo escuro */
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 32px;
+    }
+    
+    .kanban-column {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      min-height: 600px;
+      border: 1px solid var(--border-color);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+    }
+    
+    .kanban-column:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+    
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .column-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin: 0;
+    }
+    
+    .task-count {
+      background: var(--accent-color);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .task-list {
+      min-height: 400px;
+      padding: 8px 0;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .task-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      cursor: grab;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .task-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary-color);
+    }
+    
+    .task-card.dragging {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+    
+    .task-card.overdue .task-deadline {
+      background: var(--error-color);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    
+    .task-title {
+      font-weight: 700;
+      color: var(--text-color);
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    
+    .task-priority {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+    }
+    
+    .priority-high {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--error-color);
+    }
+    
+    .priority-medium {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning-color);
+    }
+    
+    .priority-low {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success-color);
+    }
+    
+    .task-description {
+      color: var(--secondary-color);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--secondary-color);
+    }
+    
+    .task-floor {
+      background: rgba(0, 0, 0, 0.05);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+    
+    .dark-mode .task-floor {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .task-deadline {
+      font-weight: 600;
+    }
+    
+    .task-assignee {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    
+    .assignee-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+    }
+    
+    .assignee-name {
+      font-size: 13px;
+      color: var(--secondary-color);
+    }
+    
+    .add-task-btn {
+      width: 100%;
+      padding: 16px;
+      border: 2px dashed var(--border-color);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--secondary-color);
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    
+    .add-task-btn:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      background: rgba(59, 130, 246, 0.05);
+    }
+    
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px); /* Glassmorphism effect */
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal {
+      background: rgba(255, 255, 255, 0.95); /* Semi-transparent for glassmorphism */
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .dark-mode .modal {
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .modal-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-color);
+      margin: 0;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: var(--secondary-color);
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .close-btn:hover {
+      color: var(--error-color);
+      transform: rotate(90deg);
+    }
+    
+    .form-group {
+      margin-bottom: 24px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-color);
+      font-size: 14px;
+    }
+    
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--text-color);
+      font-size: 14px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      outline: none;
+    }
+    
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    
+    .modal-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      margin-top: 32px;
+    }
+    
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .chip {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: 13px;
+      background: var(--card-bg);
+      transition: all 0.3s ease;
+    }
+    
+    .chip.active {
+      border-color: var(--primary-color);
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .chip-high.active {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--error-color);
+      color: var(--error-color);
+    }
+    
+    .chip-medium.active {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning-color);
+      color: var(--warning-color);
+    }
+    
+    .chip-low.active {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--success-color);
+      color: var(--success-color);
+    }
+    
+    .comments-list {
+      max-height: 240px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+      padding: 16px;
+      background: var(--bg-color);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .comment {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .comment:last-child {
+      border-bottom: none;
+    }
+    
+    .notification-toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      padding: 16px 24px;
+      border-radius: 8px;
+      background: var(--primary-color);
+      color: white;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .notification-toast.notification-success {
+      background: var(--success-color);
+    }
+    
+    .notification-toast.notification-error {
+      background: var(--error-color);
+    }
+    
+    .back-to-top-btn {
+      position: fixed;
+      bottom: 32px;
+      left: 32px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .back-to-top-btn.visible {
+      opacity: 1;
+    }
+    
+    .back-to-top-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    @media (max-width: 768px) {
+      .kanban-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .kanban-controls {
+        flex-direction: column;
+      }
+      
+      .filter-controls {
+        flex-wrap: wrap;
+      }
+      
+      .kanban-board {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .modal-actions {
+        flex-direction: column;
+      }
+    }
+    
+    .dark-mode .kanban-column,
+    .dark-mode .task-card,
+    .dark-mode .modal {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dark-mode .task-card:hover {
+      box-shadow: 0 6px 16px rgba(96, 165, 250, 0.2); /* Neon glow */
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary-color);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Cursor effects for interactivity */
+    body {
+      cursor: default;
+    }
+    
+    button, a, .task-card {
+      cursor: pointer;
+    }
+
+    /* Additional trends: Big blocks with contrast */
+    .kanban-column {
+      background: linear-gradient(to bottom, var(--card-bg), rgba(var(--mocha-mousse-rgb), 0.05));
+    }
+
+    .dark-mode .kanban-column {
+      background: linear-gradient(to bottom, var(--card-bg), rgba(165, 124, 101, 0.1)); /* Warm mocha in dark */
+    }
+
+    /* Micro-animations for task list items */
+    .task-card {
+      animation: fadeInUp 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .task-card:nth-child(1) { animation-delay: 0.1s; }
+    .task-card:nth-child(2) { animation-delay: 0.2s; }
+    .task-card:nth-child(3) { animation-delay: 0.3s; }
+    /* And so on for more */
+
+    /* Negative space: Increased margins */
+    .kanban-container {
+      padding: 48px 32px;
+    }
+
+    /* Brutalist touch: Simple, raw borders */
+    .task-card {
+      border-width: 2px;
+      border-style: solid;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading indicator -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Carregando...</p>
+  </div>
+
+  <header class="banner" role="banner">
+    <div class="header-left">
+      <img id="main-logo" 
+          src="https://raw.githubusercontent.com/tavysmikael/colaboradoragr/bc424350bb2fe99f14035e253130cd192bfdbf7a/logocompleto.webp" 
+          alt="Logo completa da Agência Goiana de Regulação" 
+          class="logo" tabindex="0">
+    </div>
+    <div class="header-right">
+      <nav class="nav-banner" aria-label="Navegação principal">
+        <a href="index.html" class="nav-btn" aria-label="Início" tabindex="0">INÍCIO</a>
+        <a href="gerenciamento-projetos.html" class="nav-btn active" aria-label="Projetos" tabindex="0">PROJETOS</a>
+        <button class="nav-btn" type="button" aria-label="Pessoas" tabindex="0">PESSOAS</button>
+      </nav>
+      <a href="#menu" class="login-icon" id="menuHamburger" title="Menu" tabindex="0" aria-label="Abrir menu" aria-expanded="false">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="6" width="28" height="2" rx="1" fill="currentColor"/>
+          <rect y="13" width="28" height="2" rx="1" fill="currentColor"/>
+          <rect y="20" width="28" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </a>
+      <div class="menu-dropdown" id="menuDropdown" aria-label="Menu de opções" role="menu">
+        <button onclick="handleLogin()" aria-label="Login" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 12H3M12 5l7 7-7 7"/></svg>
+          Login
+        </button>
+        <button onclick="toggleDarkMode()" aria-label="Alternar modo escuro" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          Modo Escuro
+        </button>
+        <button onclick="showNotifications()" aria-label="Notificações" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Notificações
+        </button>
+        <button onclick="exportToCSV()" aria-label="Exportar tarefas" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><path d="M12 15V3"/></svg>
+          Exportar CSV
+        </button>
+      </div>
+    </div>
+  </header>
+  <hr class="custom-hr" />
+  <div class="voltar-container">
+    <button class="btn-voltar-fixo" onclick="window.history.back()" title="Voltar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Navegação breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="index.html">Início</a></li>
+        <li class="breadcrumb-item" aria-current="page">Gerenciamento de Projetos</li>
+      </ol>
+    </nav>
+  </div>
+
+  <main id="main-content" role="main">
+    <div class="kanban-container">
+      <div class="kanban-header">
+        <div class="kanban-controls">
+          <input type="text" id="taskSearch" class="search-input" placeholder="Buscar tarefas..." aria-label="Buscar tarefas">
+          <div class="filter-controls">
+            <select class="filter-select" id="floorFilter" aria-label="Filtrar por andar">
+              <option value="">Todos os Andares</option>
+              <option value="1">1º Andar</option>
+              <option value="2">2º Andar</option>
+              <option value="3">3º Andar</option>
+              <option value="4">4º Andar</option>
+              <option value="5">5º Andar</option>
+              <option value="6">6º Andar</option>
+              <option value="7">7º Andar</option>
+              <option value="8">8º Andar</option>
+              <option value="9">9º Andar</option>
+              <option value="10">10º Andar</option>
+              <option value="11">11º Andar</option>
+              <option value="12">12º Andar</option>
+            </select>
+            <select class="filter-select" id="managementFilter" aria-label="Filtrar por gerência">
+              <option value="">Todas as Gerências</option>
+              <option value="presidencia">Presidência</option>
+              <option value="diretoria-gestao">Diretoria de Gestão Integrada</option>
+              <option value="diretoria-regulacao">Diretoria de Regulação e Fiscalização</option>
+              <option value="conselho">Conselho</option>
+              <option value="chefia">Chefia</option>
+              <option value="ouvidoria">Ouvidoria</option>
+              <option value="procuradoria">Procuradoria</option>
+              <option value="secretaria-geral">Secretaria-Geral</option>
+              <option value="gerencia-administrativa">Gerência Administrativa</option>
+              <option value="gerencia-financeira">Gerência Financeira</option>
+              <option value="gerencia-recursos-humanos">Gerência de Recursos Humanos</option>
+              <option value="gerencia-tecnologia">Gerência de Tecnologia</option>
+              <option value="gerencia-juridica">Gerência Jurídica</option>
+            </select>
+            <div class="filter-chips" id="priorityChips">
+              <button class="chip chip-high" data-priority="high" aria-label="Filtrar por prioridade alta">Alta</button>
+              <button class="chip chip-medium" data-priority="medium" aria-label="Filtrar por prioridade média">Média</button>
+              <button class="chip chip-low" data-priority="low" aria-label="Filtrar por prioridade baixa">Baixa</button>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="openTaskModal()" aria-label="Criar nova tarefa">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14"/>
+              <path d="M5 12h14"/>
+            </svg>
+            Nova Tarefa
+          </button>
+        </div>
+      </div>
+
+      <div class="kanban-board" id="kanbanBoard">
+        <div class="kanban-column" data-status="todo">
+          <div class="column-header">
+            <h3 class="column-title">A Fazer</h3>
+            <span class="task-count" id="todoCount">0</span>
+          </div>
+          <div class="task-list" id="todoList" ondrop="drop(event)" ondragover="allowDrop(event)">
+          </div>
+          <button class="add-task-btn" onclick="openTaskModal('${col.status}')" aria-label="Adicionar tarefa">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14"/>
+              <path d="M5 12h14"/>
+            </svg>
+            Adicionar Tarefa
+          </button>
+        </div>
+
+        <div class="kanban-column" data-status="in-progress">
+          <div class="column-header">
+            <h3 class="column-title">Em Progresso</h3>
+            <span class="task-count" id="inProgressCount">0</span>
+          </div>
+          <div class="task-list" id="inProgressList" ondrop="drop(event)" ondragover="allowDrop(event)">
+          </div>
+          <button class="add-task-btn" onclick="openTaskModal('in-progress')" aria-label="Adicionar tarefa em progresso">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14"/>
+              <path d="M5 12h14"/>
+            </svg>
+            Adicionar Tarefa
+          </button>
+        </div>
+
+        <div class="kanban-column" data-status="review">
+          <div class="column-header">
+            <h3 class="column-title">Em Revisão</h3>
+            <span class="task-count" id="reviewCount">0</span>
+          </div>
+          <div class="task-list" id="reviewList" ondrop="drop(event)" ondragover="allowDrop(event)">
+          </div>
+          <button class="add-task-btn" onclick="openTaskModal('review')" aria-label="Adicionar tarefa em revisão">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14"/>
+              <path d="M5 12h14"/>
+            </svg>
+            Adicionar Tarefa
+          </button>
+        </div>
+
+        <div class="kanban-column" data-status="done">
+          <div class="column-header">
+            <h3 class="column-title">Concluído</h3>
+            <span class="task-count" id="doneCount">0</span>
+          </div>
+          <div class="task-list" id="doneList" ondrop="drop(event)" ondragover="allowDrop(event)">
+          </div>
+          <button class="add-task-btn" onclick="openTaskModal('done')" aria-label="Adicionar tarefa concluída">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14"/>
+              <path d="M5 12h14"/>
+            </svg>
+            Adicionar Tarefa
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="taskModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Nova Tarefa</h2>
+        <button class="close-btn" onclick="closeTaskModal()" aria-label="Fechar modal">&times;</button>
+      </div>
+      <form id="taskForm">
+        <div class="form-group">
+          <label class="form-label" for="taskTitle">Título da Tarefa</label>
+          <input type="text" id="taskTitle" class="form-input" required aria-required="true">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="taskDescription">Descrição</label>
+          <textarea id="taskDescription" class="form-textarea" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="taskFloor">Andar</label>
+            <select id="taskFloor" class="form-select" required aria-required="true">
+              <option value="">Selecione o andar</option>
+              <option value="1">1º Andar</option>
+              <option value="2">2º Andar</option>
+              <option value="3">3º Andar</option>
+              <option value="4">4º Andar</option>
+              <option value="5">5º Andar</option>
+              <option value="6">6º Andar</option>
+              <option value="7">7º Andar</option>
+              <option value="8">8º Andar</option>
+              <option value="9">9º Andar</option>
+              <option value="10">10º Andar</option>
+              <option value="11">11º Andar</option>
+              <option value="12">12º Andar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="taskManagement">Gerência</label>
+            <select id="taskManagement" class="form-select" required aria-required="true">
+              <option value="">Selecione a gerência</option>
+              <option value="presidencia">Presidência</option>
+              <option value="diretoria-gestao">Diretoria de Gestão Integrada</option>
+              <option value="diretoria-regulacao">Diretoria de Regulação e Fiscalização</option>
+              <option value="conselho">Conselho</option>
+              <option value="chefia">Chefia</option>
+              <option value="ouvidoria">Ouvidoria</option>
+              <option value="procuradoria">Procuradoria</option>
+              <option value="secretaria-geral">Secretaria-Geral</option>
+              <option value="gerencia-administrativa">Gerência Administrativa</option>
+              <option value="gerencia-financeira">Gerência Financeira</option>
+              <option value="gerencia-recursos-humanos">Gerência de Recursos Humanos</option>
+              <option value="gerencia-tecnologia">Gerência de Tecnologia</option>
+              <option value="gerencia-juridica">Gerência Jurídica</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="taskPriority">Prioridade</label>
+            <select id="taskPriority" class="form-select" required aria-required="true">
+              <option value="low">Baixa</option>
+              <option value="medium">Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="taskDeadline">Prazo</label>
+            <input type="date" id="taskDeadline" class="form-input" required aria-required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="taskAssignee">Responsável</label>
+          <input type="text" id="taskAssignee" class="form-input" placeholder="Nome do responsável">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="taskStatus">Status</label>
+          <select id="taskStatus" class="form-select" required aria-required="true">
+            <option value="todo">A Fazer</option>
+            <option value="in-progress">Em Progresso</option>
+            <option value="review">Em Revisão</option>
+            <option value="done">Concluído</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Comentários</label>
+          <div id="taskComments" class="comments-list" aria-live="polite"></div>
+          <textarea id="newComment" class="form-textarea" placeholder="Adicionar comentário..."></textarea>
+          <button type="button" class="btn-primary" onclick="addComment()">Enviar Comentário</button>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeTaskModal()" aria-label="Cancelar">Cancelar</button>
+          <button type="submit" class="btn-primary" aria-label="Salvar tarefa">Salvar Tarefa</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer-banner" aria-label="Rodapé" role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Informações e Contato</h3>
+        <p>Telefone: (62) 3226-6436</p>
+        <p>WhatsApp: (62) 98480-7353</p>
+        <p>Email: ouvidoria.agr@goias.gov.br</p>
+      </div>
+      <div class="footer-section">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="https://www.goias.gov.br" target="_blank" rel="noopener">Portal do Governo</a></li>
+          <li><a href="https://www.goias.gov.br/agr/" target="_blank" rel="noopener">Site Oficial AGR</a></li>
+          <li><a href="https://www.transparencia.go.gov.br" target="_blank" rel="noopener">Transparência</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Redes Sociais</h3>
+        <div class="footer-social">
+        <a href="https://facebook.com" target="_blank" title="Facebook" aria-label="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com" target="_blank" title="Instagram" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5zm4.25 3.75a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 1.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-2.25a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com" target="_blank" title="YouTube" aria-label="YouTube">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+        <a href="https://x.com" target="_blank" title="X" aria-label="X">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://tiktok.com" target="_blank" title="TikTok" aria-label="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-2.245 6.17 6.17 0 0 1-.828-3.441h-2.862v13.552a2.913 2.913 0 0 1-2.847 2.966 2.895 2.895 0 0 1-2.932-2.84c0-1.506 1.227-2.742 2.74-2.877V8.68c-2.925.139-5.344 2.5-5.344 5.446 0 3.018 2.45 5.467 5.468 5.467 3.018 0 5.468-2.449 5.468-5.467V7.487a8.75 8.75 0 0 0 4.106 1.022V6.686z"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#000">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <div class="copyright-bar">
+    © Copyright 2025, Agência Goiana de Regulação - All Rights Reserved
+  </div>
+  <div class="floating-buttons">
+    <button id="dark-mode-btn" title="Alternar Modo Escuro" aria-label="Alternar Modo Escuro" tabindex="0">
+      <span id="dark-mode-icon">&#9789;</span>
+    </button>
+    <button id="back-to-top-btn" title="Voltar ao topo" aria-label="Voltar ao topo" tabindex="0" style="display: none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Notification Toast -->
+  <div id="notification-toast" class="notification-toast" role="alert" aria-live="polite"></div>
+
+  <script>
+    // Dados iniciais
+    const sampleTasks = [
+      {
+        id: 1,
+        title: "Implementar novo sistema de controle",
+        description: "Desenvolver e implementar sistema de controle interno para o 3º andar",
+        floor: "3",
+        management: "gerencia-tecnologia",
+        priority: "high",
+        deadline: "2025-02-15",
+        assignee: "João Silva",
+        status: "in-progress",
+        comments: []
+      },
+      {
+        id: 2,
+        title: "Revisar processos administrativos",
+        description: "Análise e otimização dos processos administrativos do 5º andar",
+        floor: "5",
+        management: "gerencia-administrativa",
+        priority: "medium",
+        deadline: "2025-01-30",
+        assignee: "Maria Santos",
+        status: "todo",
+        comments: []
+      },
+      {
+        id: 3,
+        title: "Atualizar documentação financeira",
+        description: "Revisão e atualização de toda documentação financeira",
+        floor: "7",
+        management: "gerencia-financeira",
+        priority: "high",
+        deadline: "2025-01-25",
+        assignee: "Carlos Oliveira",
+        status: "review",
+        comments: []
+      },
+      {
+        id: 4,
+        title: "Treinamento de equipe RH",
+        description: "Organizar treinamento sobre novas políticas de RH",
+        floor: "2",
+        management: "gerencia-recursos-humanos",
+        priority: "medium",
+        deadline: "2025-02-10",
+        assignee: "Ana Costa",
+        status: "done",
+        comments: []
+      }
+    ];
+
+    let tasks = JSON.parse(localStorage.getItem('kanbanTasks')) || sampleTasks;
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', () => {
+      hideLoadingOverlay();
+      renderTasks();
+      updateTaskCounts();
+      checkDeadlines();
+      setupEventListeners();
+      setupBackToTop();
+      setupNotifications();
+      setupGamification();
+      setupAnalytics();
+      registerServiceWorker();
+    });
+
+    // Funções de utilidade
+    function formatDate(date) {
+      const d = new Date(date);
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    function generateTaskId() {
+      return Math.random().toString(36).substr(2, 9);
+    }
+
+    function saveTasks() {
+      localStorage.setItem('kanbanTasks', JSON.stringify(tasks));
+    }
+
+    function showNotification(message, type) {
+      const toast = document.getElementById('notification-toast');
+      toast.textContent = message;
+      toast.className = `notification-toast notification-${type}`;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+
+    // Funções de renderização
+    function renderTasks() {
+      const columns = ['todo', 'in-progress', 'review', 'done'];
+      columns.forEach(status => {
+        const list = document.getElementById(`${status}List`);
+        list.innerHTML = '';
+        const filteredTasks = tasks.filter(task => task.status === status);
+        filteredTasks.forEach(task => {
+          const taskElement = createTaskElement(task);
+          list.appendChild(taskElement);
+          enableInlineEdit(taskElement);
+        });
+      });
+      filterTasks();
+      checkDeadlines();
+    }
+
+    function createTaskElement(task) {
+      const taskDiv = document.createElement('div');
+      taskDiv.className = 'task-card';
+      taskDiv.draggable = true;
+      taskDiv.dataset.taskId = task.id;
+      taskDiv.tabIndex = 0;
+      const priorityClass = `priority-${task.priority}`;
+      const priorityText = task.priority === 'high' ? 'Alta' : task.priority === 'medium' ? 'Média' : 'Baixa';
+      // Sanitização simples (substituir por DOMPurify em produção)
+      const sanitizedTitle = task.title.replace(/[<>]/g, '');
+      const sanitizedDescription = task.description.replace(/[<>]/g, '');
+      taskDiv.innerHTML = `
+        <div class="task-header">
+          <h4 class="task-title" role="button" aria-label="Editar título da tarefa">${sanitizedTitle}</h4>
+          <span class="task-priority ${priorityClass}">${priorityText}</span>
+        </div>
+        <p class="task-description">${sanitizedDescription}</p>
+        <div class="task-meta">
+          <span class="task-floor">${task.floor}º Andar</span>
+          <span class="task-deadline">${formatDate(task.deadline)}</span>
+        </div>
+        ${task.assignee ? `
+          <div class="task-assignee">
+            <div class="assignee-avatar">${task.assignee.charAt(0)}</div>
+            <span class="assignee-name">${task.assignee}</span>
+          </div>
+        ` : ''}
+      `;
+      taskDiv.addEventListener('dragstart', handleDragStart);
+      taskDiv.addEventListener('dragend', handleDragEnd);
+      taskDiv.addEventListener('keydown', handleTaskKeydown);
+      return taskDiv;
+    }
+
+    function updateTaskCounts() {
+      const columns = ['todo', 'in-progress', 'review', 'done'];
+      columns.forEach(status => {
+        const count = tasks.filter(task => task.status === status).length;
+        document.getElementById(`${status}Count`).textContent = count;
+      });
+    }
+
+    function checkDeadlines() {
+      const today = new Date().toISOString().split('T')[0];
+      tasks.forEach(task => {
+        const taskCard = document.querySelector(`[data-task-id="${task.id}"]`);
+        if (taskCard && task.deadline < today && task.status !== 'done') {
+          taskCard.classList.add('overdue');
+        }
+      });
+    }
+
+    // Funções de arrastar e soltar
+    function handleDragStart(e) {
+      e.target.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', e.target.dataset.taskId);
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+    }
+
+    function allowDrop(e) {
+      e.preventDefault();
+    }
+
+    function drop(e) {
+      e.preventDefault();
+      const taskId = e.dataTransfer.getData('text/plain');
+      const taskElement = document.querySelector(`[data-task-id="${taskId}"]`);
+      const newStatus = e.target.closest('.kanban-column').dataset.status;
+      if (taskElement && newStatus) {
+        const task = tasks.find(t => t.id == taskId);
+        if (task) {
+          task.status = newStatus;
+          saveTasks();
+          renderTasks();
+          updateTaskCounts();
+          showNotification('Tarefa movida com sucesso!', 'success');
+          checkAchievements();
+        }
+      }
+    }
+
+    // Funções de edição inline
+    function enableInlineEdit(card) {
+      const title = card.querySelector('.task-title');
+      title.addEventListener('click', () => {
+        const input = document.createElement('input');
+        input.value = title.textContent;
+        input.className = 'form-input';
+        input.setAttribute('aria-label', 'Editar título da tarefa');
+        title.replaceWith(input);
+        input.focus();
+        input.addEventListener('blur', () => {
+          const taskId = card.dataset.taskId;
+          const task = tasks.find(t => t.id == taskId);
+          task.title = input.value.trim();
+          saveTasks();
+          renderTasks();
+          showNotification('Título atualizado!', 'success');
+        });
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter') input.blur();
+        });
+      });
+    }
+
+    // Funções de modal
+    function openTaskModal(status = 'todo', taskId = null) {
+      const modal = document.getElementById('taskModal');
+      const form = document.getElementById('taskForm');
+      const modalTitle = document.getElementById('modalTitle');
+      form.dataset.taskId = taskId || '';
+      if (taskId) {
+        const task = tasks.find(t => t.id == taskId);
+        if (task) {
+          modalTitle.textContent = 'Editar Tarefa';
+          document.getElementById('taskTitle').value = task.title;
+          document.getElementById('taskDescription').value = task.description;
+          document.getElementById('taskFloor').value = task.floor;
+          document.getElementById('taskManagement').value = task.management;
+          document.getElementById('taskPriority').value = task.priority;
+          document.getElementById('taskDeadline').value = task.deadline;
+          document.getElementById('taskAssignee').value = task.assignee || '';
+          document.getElementById('taskStatus').value = task.status;
+          renderComments(task.comments || []);
+        }
+      } else {
+        modalTitle.textContent = 'Nova Tarefa';
+        form.reset();
+        document.getElementById('taskStatus').value = status;
+        document.getElementById('taskComments').innerHTML = '';
+      }
+      modal.classList.add('active');
+      document.getElementById('taskTitle').focus();
+    }
+
+    function closeTaskModal() {
+      document.getElementById('taskModal').classList.remove('active');
+    }
+
+    // Funções de comentários
+    function addComment() {
+      const commentText = document.getElementById('newComment').value.trim();
+      if (!commentText) return;
+      const taskId = document.getElementById('taskForm').dataset.taskId;
+      const task = tasks.find(t => t.id == taskId);
+      if (!task.comments) task.comments = [];
+      task.comments.push({ text: commentText, date: new Date().toISOString(), user: 'Usuário Atual' });
+      saveTasks();
+      renderComments(task.comments);
+      document.getElementById('newComment').value = '';
+      showNotification('Comentário adicionado!', 'success');
+    }
+
+    function renderComments(comments) {
+      const commentsList = document.getElementById('taskComments');
+      commentsList.innerHTML = comments.map(c => `
+        <div class="comment">
+          <p>${c.text.replace(/[<>]/g, '')}</p>
+          <small>${formatDate(c.date)} - ${c.user}</small>
+        </div>
+      `).join('');
+    }
+
+    // Funções de filtro e busca
+    function setupEventListeners() {
+      document.getElementById('floorFilter').addEventListener('change', filterTasks);
+      document.getElementById('managementFilter').addEventListener('change', filterTasks);
+      document.getElementById('taskSearch').addEventListener('input', filterTasks);
+      document.querySelectorAll('#priorityChips .chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('#priorityChips .chip').forEach(c => c.classList.remove('active'));
+          chip.classList.toggle('active');
+          filterTasks();
+        });
+      });
+      document.getElementById('taskForm').addEventListener('submit', handleTaskSubmit);
+      document.addEventListener('keydown', handleKeyboardShortcuts);
+      document.getElementById('menuHamburger').addEventListener('click', toggleMenu);
+      document.getElementById('menuHamburger').addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleMenu();
+        }
+      });
+    }
+
+    function filterTasks() {
+      const floorFilter = document.getElementById('floorFilter').value;
+      const managementFilter = document.getElementById('managementFilter').value;
+      const priorityFilter = document.querySelector('#priorityChips .chip.active')?.dataset.priority || '';
+      const searchTerm = document.getElementById('taskSearch').value.toLowerCase();
+      const taskCards = document.querySelectorAll('.task-card');
+      taskCards.forEach(card => {
+        const taskId = card.dataset.taskId;
+        const task = tasks.find(t => t.id == taskId);
+        if (!task) return;
+        const floorMatch = !floorFilter || task.floor === floorFilter;
+        const managementMatch = !managementFilter || task.management === managementFilter;
+        const priorityMatch = !priorityFilter || task.priority === priorityFilter;
+        const searchMatch = !searchTerm ||
+          task.title.toLowerCase().includes(searchTerm) ||
+          task.description.toLowerCase().includes(searchTerm) ||
+          task.assignee?.toLowerCase().includes(searchTerm);
+        card.style.display = floorMatch && managementMatch && priorityMatch && searchMatch ? 'block' : 'none';
+      });
+    }
+
+    // Manipulação de formulário
+    function handleTaskSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const taskId = form.dataset.taskId;
+      const taskData = {
+        title: document.getElementById('taskTitle').value.trim(),
+        description: document.getElementById('taskDescription').value.trim(),
+        floor: document.getElementById('taskFloor').value,
+        management: document.getElementById('taskManagement').value,
+        priority: document.getElementById('taskPriority').value,
+        deadline: document.getElementById('taskDeadline').value,
+        assignee: document.getElementById('taskAssignee').value.trim(),
+        status: document.getElementById('taskStatus').value,
+        comments: taskId ? (tasks.find(t => t.id == taskId)?.comments || []) : []
+      };
+
+      if (!taskData.title || !taskData.floor || !taskData.management || !taskData.priority || !taskData.deadline || !taskData.status) {
+        showNotification('Por favor, preencha todos os campos obrigatórios.', 'error');
+        return;
+      }
+
+      if (taskId) {
+        const taskIndex = tasks.findIndex(t => t.id == taskId);
+        tasks[taskIndex] = { ...tasks[taskIndex], ...taskData };
+      } else {
+        taskData.id = generateTaskId();
+        tasks.push(taskData);
+      }
+
+      saveTasks();
+      renderTasks();
+      updateTaskCounts();
+      closeTaskModal();
+      showNotification(taskId ? 'Tarefa atualizada!' : 'Tarefa criada!', 'success');
+      checkAchievements();
+    }
+
+    // Funções de navegação e menu
+    function toggleMenu() {
+      const menu = document.getElementById('menuDropdown');
+      const hamburger = document.getElementById('menuHamburger');
+      const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !isExpanded);
+      menu.style.display = isExpanded ? 'none' : 'block';
+    }
+
+    // Funções de acessibilidade
+    function handleTaskKeydown(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openTaskModal(null, e.target.dataset.taskId);
+      }
+    }
+
+    function handleKeyboardShortcuts(e) {
+      if (e.ctrlKey && e.key === 't') {
+        e.preventDefault();
+        openTaskModal();
+      }
+      if (e.ctrlKey && e.key === 'f') {
+        e.preventDefault();
+        document.getElementById('taskSearch').focus();
+      }
+    }
+
+    // Funções de gamificação
+    function setupGamification() {
+      checkAchievements();
+    }
+
+    function checkAchievements() {
+      const progress = JSON.parse(localStorage.getItem('userProgress')) || { achievements: [] };
+      if (tasks.filter(t => t.status === 'done').length >= 10 && !progress.achievements.includes('10-tasks')) {
+        progress.achievements.push('10-tasks');
+        showNotification('Conquista desbloqueada: 10 tarefas concluídas!', 'success');
+        localStorage.setItem('userProgress', JSON.stringify(progress));
+      }
+    }
+
+    // Exportação para CSV
+    function exportToCSV() {
+      const csv = [
+        ['ID', 'Título', 'Descrição', 'Andar', 'Gerência', 'Prioridade', 'Prazo', 'Responsável', 'Status'],
+        ...tasks.map(task => [
+          task.id,
+          `"${task.title.replace(/"/g, '""')}"`,
+          `"${task.description.replace(/"/g, '""')}"`,
+          task.floor,
+          task.management,
+          task.priority,
+          task.deadline,
+          task.assignee || '',
+          task.status
+        ])
+      ].map(row => row.join(',')).join('\n');
+      
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tarefas.csv';
+      a.click();
+      window.URL.revokeObjectURL(url);
+      showNotification('Tarefas exportadas como CSV!', 'success');
+    }
+
+    // Funções de carregamento e PWA
+    function hideLoadingOverlay() {
+      document.getElementById('loading-overlay').style.display = 'none';
+    }
+
+    function setupBackToTop() {
+      const btn = document.getElementById('back-to-top-btn');
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 300);
+      });
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    function setupNotifications() {
+      // Simulação de notificações (pode ser expandido com push notifications)
+    }
+
+    function setupAnalytics() {
+      // Analytics já configurado via gtag
+    }
+
+    function registerServiceWorker() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker registrado', reg))
+          .catch(err => console.error('Erro ao registrar Service Worker', err));
+      }
+    }
+
+    // Funções de login e modo escuro
+    function handleLogin() {
+      // Substituir por autenticação real (ex.: Firebase)
+      showNotification('Login simulado! Integre com um sistema de autenticação.', 'success');
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+      showNotification('Modo escuro alternado!', 'success');
+    }
+
+    function showNotifications() {
+      // Simulação de notificações
+      showNotification('Nenhuma notificação nova.', 'success');
+    }
+    // MENU SUSPENSO HAMBURGER
+    const menuHamburger = document.getElementById('menuHamburger');
+    const menuDropdown = document.getElementById('menuDropdown');
+    document.addEventListener('click', function(e) {
+      if (menuDropdown.classList.contains('show') && !menuDropdown.contains(e.target) && e.target !== menuHamburger && !menuHamburger.contains(e.target)) {
+        menuDropdown.classList.remove('show');
+      }
+    });
+    menuHamburger.addEventListener('click', function(e) {
+      e.preventDefault();
+      menuDropdown.classList.toggle('show');
+    });
+    menuHamburger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuDropdown.classList.toggle('show');
+      }
+    });
+
+   // DARK MODE ICON SWITCH
+   function updateDarkModeIcon() {
+      const icon = document.getElementById('dark-mode-icon');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.innerHTML = '&#9728;'; // sun
+      } else {
+        icon.innerHTML = '<svg width="30" height="30" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>' // moon
+      }
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      menuDropdown.classList.remove('show');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+      updateDarkModeIcon();
+    }
+    // Persistência do modo escuro
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+    updateDarkModeIcon();
+    // Botão flutuante de dark mode
+    document.getElementById('dark-mode-btn').addEventListener('click', function(e) {
+      toggleDarkMode();
+    });
+
+    // Dark mode automático pelo sistema
+    //if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      //document.body.classList.add('dark-mode');
+    //}
+    // Acessibilidade: navegação por teclado
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        document.body.classList.add('user-is-tabbing');
+      }
+    });
+    document.addEventListener('mousedown', function() {
+      document.body.classList.remove('user-is-tabbing');
+    });
+
+    // Performance: Hide loading overlay when page is ready
+    window.addEventListener('load', function() {
+      const loadingOverlay = document.getElementById('loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => {
+          loadingOverlay.style.display = 'none';
+        }, 300);
+      }
+    });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('back-to-top-btn');
+    if (backToTopBtn) {
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.style.display = 'block';
+        } else {
+          backToTopBtn.style.display = 'none';
+        }
+      });
+
+      backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+
+    // Notification system
+    function showNotification(message, type = 'info') {
+      const toast = document.getElementById('notification-toast');
+      if (toast) {
+        toast.textContent = message;
+        toast.className = `notification-toast ${type}`;
+        toast.style.display = 'block';
+        
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // Analytics: Track page views
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_view', {
+        'page_title': 'Quem Somos',
+        'page_location': window.location.href
+      });
+    }
+
+    // Track user interactions
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.icone-link')) {
+        const linkText = e.target.closest('.icone-link').querySelector('span').textContent;
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'click', {
+            'event_category': 'navigation',
+            'event_label': linkText
+          });
+        }
+      }
+    });
+
+    // Service Worker Registration for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
