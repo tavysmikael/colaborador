@@ -1,0 +1,245 @@
+
+/* Em telas de desktop (largura maior que 992px) */
+@media (min-width: 992px) {
+    .page-controls-wrapper {
+        position: absolute; /* Tira do fluxo normal da página */
+        top: 12rem;        
+        left: 10rem;      
+        width: 280px;       
+        z-index: 10;        /* Garante que fique por cima de outros elementos */
+    }
+
+    .filters-container {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+        border-radius: 8px;
+        border: none;
+    }
+    
+}
+
+
+/* Em telas de tablet e mobile (largura menor que 991px) */
+@media (max-width: 991px) {
+    .page-controls-wrapper {
+        padding: 1.5rem 1.5rem 0;
+        box-sizing: border-box;
+    }
+
+    .filters-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+        border-bottom: 1px solid var(--light-border);
+        padding-bottom: 1.5rem;
+    }
+    
+    body.dark-mode .filters-container {
+        border-bottom-color: var(--dark-border);
+    }
+}
+
+
+/* Estilos dos itens do filtro (permanecem os mesmos para ambos os layouts) */
+.filter-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-item label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+}
+
+body.dark-mode .filter-item label {
+    color: var(--text-secondary-dark);
+}
+
+.filter-item input[type="text"],
+.filter-item input[type="date"] {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    padding: 0.5rem 0.1rem;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: border-color 0.3s ease;
+}
+
+body.dark-mode .filter-item input[type="text"],
+body.dark-mode .filter-item input[type="date"] {
+    color: var(--text-light);
+    border-bottom-color: #555;
+}
+
+.filter-item input:focus {
+    outline: none;
+    border-bottom-color: var(--primary-color);
+}
+
+body.dark-mode .filter-item input:focus {
+    border-bottom-color: var(--secondary-color);
+}
+
+/* Container do relógio - centralizado */
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: auto; /* Remove a altura mínima forçada */
+    padding: 0;       /* Remove o espaçamento interno */
+    margin-bottom: 9rem; /* Adiciona um respiro abaixo do relógio */
+}
+
+#employeeName {
+    margin-top: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+body.dark-mode #employeeName {
+    color: var(--text-secondary-dark);
+}
+
+/* Relógio Flip - adaptado do Fliqlo */
+.clock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 80%;
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+.clock__number {
+    position: relative;
+    /* Adicionado */
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    padding-top: 0.5rem;
+    padding-bottom: 1.2rem;
+
+    overflow: hidden;
+    min-width: 9rem;
+    margin: 0 0.25rem;
+    background-color: var(--clock-number);
+    background-image: linear-gradient(var(--clock-shade), var(--clock-number));
+    border-radius: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; /* Vamos mudar isso no próximo passo */
+    font-size: 8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--clock-text);
+    
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    
+    &:before {
+    }
+    /* Flip */
+    &:before {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    content: attr(data-time);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    transform-origin: top;
+    background-color: var(--clock-number); /* Fundo do card flip */
+    color: var(--clock-text);
+    z-index: 2; /* Acima do conteúdo principal */
+    transition: opacity 0.6s ease-in-out; /* Suaviza entrada/saída */
+    }
+    
+    /* Linha do meio */
+    &:after {
+    content: ''; /* Essencial para o pseudo-elemento aparecer */
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0; /* Garante que a linha ocupe toda a largura */
+    height: 3px; /* Espessura da linha */
+    background: var(--clock-bg);
+    transform: translateY(-50%); /* Centraliza a linha perfeitamente */
+    z-index: 1; /* Garante que a linha fique sobre o número base */
+    }
+}
+
+.flip:before {
+    animation: flipDown 0.6s ease-in-out forwards; 
+}
+
+@keyframes flip {
+    0% {
+    opacity: 0;
+    background-color: var(--clock-number);
+    color: var(--clock-number);
+    transform: rotateX(180deg);
+    }
+    
+    15% {
+    opacity: 1;
+    }
+    
+    90% {
+    background-color: transparent;
+    color: inherit;
+    transform: rotateX(0);
+    }
+    
+    100% {
+    opacity: 0;
+    }
+}
+
+.separator {
+    font-size: 8rem;
+    font-weight: bold;
+    color: var(--clock-separator);
+    font-family: inherit;
+}
+
+/* Responsivo */
+@media (max-width: 700px) {
+    .filters-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: calc(100% - 3rem);
+    }
+    
+    .clock__number {
+    font-size: 4rem;
+    min-width: 6rem;
+    }
+    
+    .separator {
+    font-size: 4rem;
+    }
+}
+
+body.dark-mode {
+    --clock-bg: #0f0f0f; /* Cor da linha de separação */
+    --clock-number: #252525;
+    --clock-shade: #363636;
+    --clock-text: #EAEAEA;
+    --clock-separator: #EAEAEA;
+}
+

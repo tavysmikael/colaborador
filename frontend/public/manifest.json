@@ -1,0 +1,22 @@
+{
+  "name": "AGR - Espaço do Colaborador",
+  "short_name": "AGR Colaborador",
+  "description": "Portal oficial do colaborador da Agência Goiana de Regulação. Acesse informações, documentos, agenda, férias, benefícios e mais.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4299e1",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/logo-azul.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo-azul.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

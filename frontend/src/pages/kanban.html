@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Projetos - AGR</title>
+
+    <link rel="stylesheet" href="/src/styles/main.css">
+    
+    <link rel="stylesheet" href="/src/styles/pages/kanban.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+</head>
+<body id="page-kanban">
+
+    <div class="kanban-page-wrapper">
+        <div id="primary-sidebar">
+          <div class="logo-container">
+            <a href="index.html" class="logo-link">
+                <img src="https://raw.githubusercontent.com/tavysmikael/colaboradoragr/fd180ce2dfc2c03e2aeae4cf864c2e8cf2478e44/logo.png" 
+                    alt="Logo Colaboradora GR" 
+                    class="logo-img" 
+                    id="logo-img">
+            </a>
+        </div>
+
+          <div class="sidebar-top">
+            <div class="list-item" data-section="Projetos">
+                <i data-lucide="folder-kanban"></i>
+                <span class="tooltip">Projetos</span>
+            </div>
+            <div class="list-item" data-section="Reuniões">
+                <i data-lucide="calendar-days"></i>
+                <span class="tooltip">Reuniões</span>
+            </div>
+            <div class="list-item" data-section="Funcionários">
+                <i data-lucide="users"></i>
+                <span class="tooltip">Funcionários</span>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <button id="dark-mode-btn" class="list-item" aria-label="Alternar Modo Escuro">
+                <i data-lucide="moon"></i>
+            </button>
+        </div>
+      </div>
+        <div id="secondary-sidebar">
+            <div class="sidebar-header">
+                <span id="secondary-title">Functions</span>
+                <!--button id="close-secondary">×</button-->
+            </div>
+            <div class="item-list" id="secondary-content">
+                </div>
+            <div id="mini-calendar" style="display: none;"></div>
+        </div>
+        <div id="main">
+            <header>
+              <button id="add-task-global" class="global-add-btn" aria-label="Adicionar tarefa">+</button>
+              <div class="header-right">
+                  <span class="clock" id="clock"></span>
+                  
+                  <a href="/index.html" class="list-item" id="back-to-home" title="Voltar para o Início" aria-label="Voltar para o Início">
+                    <i data-lucide="chevron-left"></i>
+                  </a>
+              </div>
+            </header>
+            <div id="content">
+                <div class="kanban-controls">
+                    <input type="text" id="taskSearch" class="search-input" placeholder="Buscar tarefas..." aria-label="Buscar tarefas">
+                    <div class="filter-controls">
+                        <div class="filter-chips" id="priorityChips">
+                            <button class="chip chip-high" data-priority="high" aria-label="Filtrar por prioridade alta">Alta</button>
+                            <button class="chip chip-medium" data-priority="medium" aria-label="Filtrar por prioridade média">Média</button>
+                            <button class="chip chip-low" data-priority="low" aria-label="Filtrar por prioridade baixa">Baixa</button>
+                        </div>
+                        <select class="filter-select" id="floorFilter" aria-label="Filtrar por andar">
+                            <option value="">Todos os Andares</option>
+                            <option value="1">1º Andar</option>
+                            <option value="2">2º Andar</option>
+                            <option value="3">3º Andar</option>
+                            <option value="4">4º Andar</option>
+                            <option value="5">5º Andar</option>
+                            <option value="6">6º Andar</option>
+                            <option value="7">7º Andar</option>
+                            <option value="8">8º Andar</option>
+                            <option value="9">9º Andar</option>
+                            <option value="10">10º Andar</option>
+                            <option value="11">11º Andar</option>
+                            <option value="12">12º Andar</option>
+                        </select>
+                        <select class="filter-select" id="managementFilter" aria-label="Filtrar por gerência">
+                            <option value="">Todas as Gerências</option>
+                            <option value="presidencia">Presidência</option>
+                            <option value="diretoria-gestao">Diretoria de Gestão Integrada</option>
+                            <option value="diretoria-regulacao">Diretoria de Regulação e Fiscalização</option>
+                            <option value="conselho">Conselho</option>
+                            <option value="chefia">Chefia</option>
+                            <option value="ouvidoria">Ouvidoria</option>
+                            <option value="procuradoria">Procuradoria</option>
+                            <option value="secretaria-geral">Secretaria-Geral</option>
+                            <option value="gerencia-administrativa">Gerência Administrativa</option>
+                            <option value="gerencia-financeira">Gerência Financeira</option>
+                            <option value="gerencia-recursos-humanos">Gerência de Recursos Humanos</option>
+                            <option value="gerencia-tecnologia">Gerência de Tecnologia</option>
+                            <option value="gerencia-juridica">Gerência Jurídica</option>
+                            </select>
+                        <div class="status-filter" id="statusFilter">
+                            <button class="status-tab active" data-status="all" aria-label="Mostrar todos">Todos</button>
+                            <button class="status-tab" data-status="active" aria-label="Mostrar ativos">Ativos</button>
+                            <button class="status-tab" data-status="archived" aria-label="Mostrar arquivados">Arquivados</button>
+                        </div>
+                    </div>
+                </div>
+                <ul id="kanban-view" class="kanban-board">
+                    <li class="column" id="Solicitado"><div class="column-header"><span>Solicitado</span><span class="column-count">0</span><button class="add-task-btn">+</button></div><div class="column-body"></div></li>
+                    <li class="column" id="Planejado"><div class="column-header"><span>Planejado</span><span class="column-count">0</span><button class="add-task-btn">+</button></div><div class="column-body"></div></li>
+                    <li class="column" id="Em-Andamento"><div class="column-header"><span>Em Andamento</span><span class="column-count">0</span><button class="add-task-btn">+</button></div><div class="column-body"></div></li>
+                    <li class="column" id="revisar"><div class="column-header"><span>Em Revisão</span><span class="column-count">0</span><button class="add-task-btn">+</button></div><div class="column-body"></div></li>
+                    <li class="column" id="Concluído"><div class="column-header"><span>Concluído</span><span class="column-count">0</span><button class="add-task-btn">+</button></div><div class="column-body"></div></li>
+                    <li class="column" id="arquivado"><div class="column-header"><span>Arquivado</span><span class="column-count">0</span><button class="add-task-btn">+</button></div><div class="column-body"></div></li>
+                </ul>
+                <div id="reunioes-view" style="display: none;">
+                    <div style="display: flex; height: 100%;">
+                        <div id="meetings-list" style="width: 300px; border-right: 1px solid #2a2f3d; padding: 12px; overflow: auto;"></div>
+                        <div id="calendar-container" style="flex: 1; padding: 12px;">
+                            <div class="sidebar-header">Agenda Hoje</div>
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal">
+            <div id="modal-content">
+                <button id="close-modal" aria-label="Fechar">
+                    <i data-lucide="x"></i>
+                </button>
+
+                <div id="task-details-view">
+                    <h2 id="details-title"></h2>
+                    <div class="details-section">
+                        <strong>Descrição</strong>
+                        <p id="details-desc"></p>
+                    </div>
+                    <div class="details-meta-grid">
+                        <div><strong>Status</strong><span id="details-state"></span></div>
+                        <div><strong>Prioridade</strong><span id="details-priority"></span></div>
+                        <div><strong>Gerência</strong><span id="details-management"></span></div>
+                        <div><strong>Andar</strong><span id="details-floor"></span></div>
+                        <div><strong>Responsável</strong><span id="details-assignee"></span></div>
+                        <div><strong>Prazo</strong><span id="details-due"></span></div>
+                    </div>
+                    <button id="switch-to-edit-mode">Editar Tarefa</button>
+                </div>
+
+                <div id="task-edit-form" style="display: none;">
+                    <h2>Editar Tarefa</h2>
+                    <input type="text" id="edit-title" placeholder="Título" required aria-label="Título da tarefa">
+                    <textarea id="edit-desc" placeholder="Descrição" aria-label="Descrição da tarefa"></textarea>
+                    <select id="edit-priority" aria-label="Prioridade da tarefa">
+                        <option value="High">Alta</option>
+                        <option value="Medium">Média</option>
+                        <option value="Low">Baixa</option>
+                    </select>
+                    <input type="text" id="edit-assignee" placeholder="Responsável" aria-label="Responsável pela tarefa">
+                    <input type="date" id="edit-due" placeholder="Data de Vencimento" aria-label="Data de vencimento">
+                    <input type="text" id="edit-floor" placeholder="Andar (ex: 1)" aria-label="Andar da tarefa">
+                    <input type="text" id="edit-management" placeholder="Gerência (ex: gerencia-tecnologia)" aria-label="Gerência da tarefa">
+                    <button id="save-edit">Salvar</button>
+                    
+                </div>
+            </div>
+        </div>
+    <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

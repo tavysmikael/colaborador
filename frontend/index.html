@@ -11,105 +11,76 @@
   <meta name="theme-color" content="#4299e1">
   <meta name="msapplication-TileColor" content="#4299e1">
   
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.agr.go.gov.br/">
   <meta property="og:title" content="AGR - Espaço do Colaborador | Portal Oficial">
   <meta property="og:description" content="Portal oficial do colaborador da Agência Goiana de Regulação. Acesse informações, documentos, agenda, férias e mais.">
-  <meta property="og:image" content="https://github.com/tavysmikael/colaboradoragr/blob/35dd20706c02d12cf7c279e4f4f27f98cfa9a11c/logo-azul.png?raw=true">
-  <meta property="og:site_name" content="AGR - Espaço do Colaborador">
+  <meta property="og:image" content="/images/logo-azul.png"> <meta property="og:site_name" content="AGR - Espaço do Colaborador">
   <meta property="og:locale" content="pt_BR">
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://www.agr.go.gov.br/">
   <meta property="twitter:title" content="AGR - Espaço do Colaborador | Portal Oficial">
   <meta property="twitter:description" content="Portal oficial do colaborador da Agência Goiana de Regulação. Acesse informações, documentos, agenda, férias e mais.">
-  <meta property="twitter:image" content="https://github.com/tavysmikael/colaboradoragr/blob/35dd20706c02d12cf7c279e4f4f27f98cfa9a11c/logo-azul.png?raw=true">
-
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="Banners/logo-azul.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="Banners/logo-azul.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="Banners/logo-azul.png">
+  <meta property="twitter:image" content="/images/logo-azul.png"> <link rel="manifest" href="/manifest.json"> <link rel="apple-touch-icon" href="/images/logo-azul.png"> <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-azul.png"> <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-azul.png"> <link rel="icon" type="image/png" href="/images/favicon.png"> 
   
-  <!-- Preload critical resources -->
-  <link rel="preload" href="styles.css" as="style">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
-  
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Structured Data -->
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <link rel="stylesheet" href="/src/styles/pages/index.css"> 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "GovernmentOrganization",
     "name": "Agência Goiana de Regulação",
     "url": "https://www.agr.go.gov.br/",
-    "logo": "https://github.com/tavysmikael/colaboradoragr/blob/35dd20706c02d12cf7c279e4f4f27f98cfa9a11c/logo-azul.png?raw=true",
+    "logo": "/images/logo-azul.png",
     "description": "Portal oficial do colaborador da Agência Goiana de Regulação",
     "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Goiânia",
-      "addressRegion": "GO",
-      "addressCountry": "BR"
+      "@type": "PostalAddress", "addressLocality": "Goiânia", "addressRegion": "GO", "addressCountry": "BR"
     },
     "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer service",
-      "availableLanguage": "Portuguese"
+      "@type": "ContactPoint", "contactType": "customer service", "availableLanguage": "Portuguese"
     }
   }
   </script>
-
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'GA_MEASUREMENT_ID');
-  </script>
 </head>
-<body>
-  <!-- Loading indicator -->
-  <div id="loading-overlay" class="loading-overlay">
+<body id="page-index"> <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+   <!--div id="loading-overlay" class="loading-overlay">
     <div class="loading-spinner"></div>
     <p>Carregando...</p>
-  </div>
+  </div/-->
 
   <header class="banner" role="banner">
     <div class="header-left">
       <img id="main-logo" 
-          src="https://raw.githubusercontent.com/tavysmikael/colaboradoragr/bc424350bb2fe99f14035e253130cd192bfdbf7a/logocompleto.webp" 
+          src="public/images/logo/logocompleto.webp" 
           alt="Logo completa da Agência Goiana de Regulação" 
           class="logo" tabindex="0">
     </div>
     <div class="header-right">
       <nav class="nav-banner" aria-label="Navegação principal" style="display: flex; justify-content: flex-end;">
-        <a href="index.html" class="nav-btn active" aria-label="Início" tabindex="0">INÍCIO</a>
-        <a href="gerenciamento-projetos.html" class="nav-btn" aria-label="Projetos" tabindex="0">PROJETOS</a>
+        <a href="pages/index.html" class="nav-btn active" aria-label="Início" tabindex="0">INÍCIO</a>
+        <a href="pages/gerenciamento-projetos.html" class="nav-btn" aria-label="Projetos" tabindex="0">PROJETOS</a>
         <button class="nav-btn" type="button" aria-label="Pessoas" tabindex="0">PESSOAS</button>
       </nav>
       <a href="#menu" class="login-icon" id="menuHamburger" title="Menu" tabindex="0" aria-label="Abrir menu">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect y="6" width="28" height="2" rx="1" fill="currentColor"/>
           <rect y="13" width="28" height="2" rx="1" fill="currentColor"/>
           <rect y="20" width="28" height="2" rx="1" fill="currentColor"/>
         </svg>
       </a>
       <div class="menu-dropdown" id="menuDropdown" aria-label="Menu de opções" role="menu">
-        <button onclick="handleLogin()" aria-label="Login" role="menuitem">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 12H3M12 5l7 7-7 7"/></svg>
+        <button data-action="login" aria-label="Login" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 12H3M12 5l7 7-7 7"/></svg>
           Login
         </button>
-        <button onclick="toggleDarkMode()" aria-label="Alternar modo escuro" role="menuitem">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <button data-action="dark-mode" aria-label="Alternar modo escuro" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           Modo Escuro
         </button>
-        <button onclick="showNotifications()" aria-label="Notificações" role="menuitem">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <button data-action="notifications" aria-label="Notificações" role="menuitem">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           Notificações
         </button>
       </div>
@@ -119,13 +90,13 @@
   <!-- Seção de imagem dinâmica -->
   <section class="dynamic-images" aria-label="Carrossel de banners">
     <button class="carousel-btn" id="prevBtn" aria-label="Imagem anterior" tabindex="0">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M12 15L6 9L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
-    <img id="dynamicImage" src="Banners/Na agr (1).png" alt="Banner Dinâmico" tabindex="0" loading="lazy" />
+    <img id="dynamicImage" src="public/images/panel/banner1.webp" alt="Banner Dinâmico" tabindex="0" loading="lazy" />
     <button class="carousel-btn" id="nextBtn" aria-label="Próxima imagem" tabindex="0">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M6 3L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
@@ -134,27 +105,26 @@
   <hr class="custom-hr" />
 
   <main id="main-content" role="main">
-
     <h1 class="main-title" tabindex="0">Bem-vindo ao Espaço do Colaborador</h1>
 
     <!-- Quick Actions -->
     <section class="quick-actions" aria-label="Ações rápidas">
       <div class="quick-actions-grid">
-        <button class="quick-action-btn" onclick="quickAction('ferias')" aria-label="Solicitar férias">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="quick-action-btn" data-action="ferias" aria-label="Solicitar férias">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
           </svg>
           Solicitar Férias
         </button>
-        <button class="quick-action-btn" onclick="quickAction('documentos')" aria-label="Enviar Atestado">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="quick-action-btn" data-action="documentos" aria-label="Enviar Atestado">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14,2 14,8 20,8"/>
           </svg>
           Enviar Atestado
         </button>
-        <button class="quick-action-btn" onclick="quickAction('agenda')" aria-label="Ver agenda">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="quick-action-btn" data-action="agenda" aria-label="Ver agenda">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
           </svg>
           Ver Agenda
@@ -163,117 +133,128 @@
     </section>
 
     <section class="icones" aria-label="Acesso rápido aos serviços">
+      <!-- exemplo
+      <a href="src/pages/ferias.html" class="icone-link" aria-label="Solicitar férias">
+        <img src="/frontend/icons/vacation.png" alt="Férias" loading="lazy">
+        <span>Férias</span>
+      </a>-->
       <div class="icone">
-        <a href="quem-somos.html" class="icone-link" aria-label="Conheça nossa equipe">
-          <img src="https://img.icons8.com/ios-filled/100/000000/user-group-man-man.png" alt="Quem somos" loading="lazy">
+        <a href="/src/pages/quem-somos.html" class="icone-link" aria-label="Conheça nossa equipe">
+          <img src="public/icons/user-group.png" alt="Quem somos" loading="lazy">
           <span>Quem somos</span>
         </a>
       </div>
       <div class="icone">
-        <a href="agenda.html" class="icone-link" aria-label="Acessar agenda">
-          <img src="https://img.icons8.com/ios-filled/100/000000/calendar.png" alt="Agenda" loading="lazy">
+        <a href="/src/pages/calendar.html" class="icone-link" aria-label="Acessar agenda">
+          <img src="public/icons/calendar.png" alt="Agenda" loading="lazy">
           <span>Agenda</span>
         </a>
       </div>
       <div class="icone">
-        <a href="documentos.html" class="icone-link" aria-label="Acessar documentos">
-          <img src="https://img.icons8.com/?size=100&id=58175&format=png&color=000000" alt="Documentos" loading="lazy">
+        <a href="/src/pages/documents.html" class="icone-link" aria-label="Acessar documentos">
+          <img src="public/icons/documents.png" alt="Documentos" loading="lazy">
           <span>Documentos</span>
         </a>
       </div>
       <div class="icone">
-        <a href="predio.html" class="icone-link" aria-label="Estrutura do Edifício">
-          <img src="https://img.icons8.com/?size=100&id=47288&format=png&color=000000" alt="Estrutura do Edifício" loading="lazy">
+        <a href="/src/pages/edificio.html" class="icone-link" aria-label="Estrutura do Edifício">
+          <img src="public/icons/building.png" alt="Estrutura do Edifício" loading="lazy">
           <span>Estrutura do Edifício</span>
         </a>
       </div>
       <div class="icone">
-        <a href="meu-perfil.html" class="icone-link" aria-label="Meu Perfil">
-          <img src="https://img.icons8.com/?size=100&id=15277&format=png&color=000000" alt="Meu Perfil" loading="lazy">
+        <a href="/src/pages/profile.html" class="icone-link" aria-label="Meu Perfil">
+          <img src="public/icons/profile.png" alt="Meu Perfil" loading="lazy">
           <span>Meu Perfil</span>
         </a>
       </div>
       <div class="icone">
-        <a href="recadastramento.html" class="icone-link" aria-label="Recadastramento">
-          <img src="https://img.icons8.com/ios-filled/100/000000/identification-documents.png" alt="Recadastramento" loading="lazy">
+        <a href="/src/pages/recadastramento.html" class="icone-link" aria-label="Recadastramento">
+          <img src="public/icons/identification.png" alt="Recadastramento" loading="lazy">
           <span>Recadastramento</span>
         </a>
       </div>
       <div class="icone">
-        <a href="ferias.html" class="icone-link" aria-label="Solicitar férias">
-          <img src="https://img.icons8.com/?size=100&id=26075&format=png&color=000000" alt="Férias" loading="lazy">
+        <a href="/src/pages/ferias.html" class="icone-link" aria-label="Solicitar férias">
+          <img src="public/icons/vacation.png" alt="Férias" loading="lazy">
           <span>Férias</span>
         </a>
       </div>
       <div class="icone">
-        <a href="gerenciamento-projetos.html" class="icone-link" aria-label="Gerenciamento de projetos">
-          <img src="https://img.icons8.com/?size=100&id=52222&format=png&color=000000" alt="Gerenciamento de projetos" loading="lazy">
+        <a href="/src/pages/kanban.html" class="icone-link" aria-label="Gerenciamento de projetos">
+          <img src="public/icons/projects.png" alt="Gerenciamento de projetos" loading="lazy">
           <span>Gerenciamento de Projetos</span>
         </a>
       </div>
       <div class="icone">
-        <a href="galeria.html" class="icone-link" aria-label="Galeria">
-          <img src="https://img.icons8.com/?size=100&id=eaL5H9a61DGX&format=png&color=000000" alt="Meu Perfil" alt="Galeria" loading="lazy">
+        <a href="/src/pages/gallery.html" class="icone-link" aria-label="Galeria">
+          <img src="public/icons/gallery.png" alt="Galeria" loading="lazy">
           <span>Galeria Social</span>
         </a>
       </div>
       <div class="icone">
-        <a href="folha-pagamento.html" class="icone-link" aria-label="Folha de pagamento">
-          <img src="https://img.icons8.com/?size=100&id=78231&format=png&color=000000" alt="Folha de pagamento" loading="lazy">
+        <a href="/src/pages/folha-pagamento.html" class="icone-link" aria-label="Folha de pagamento">
+          <img src="public/icons/payroll.png" alt="Folha de pagamento" loading="lazy">
           <span>Folha de Pagamento</span>
         </a>
       </div>
       <div class="icone">
-        <a href="jornada.html" class="icone-link" aria-label="Jornada de trabalho">
-          <img src="https://img.icons8.com/ios-filled/100/000000/clock.png" alt="Jornada de trabalho e frequência" loading="lazy">
-          <span>Jornada de Trabalho e Frequência</span>
+        <a href="/src/pages/jornada.html" class="icone-link" aria-label="Jornada de trabalho">
+          <img src="public/icons/clock.png" alt="Jornada de trabalho e frequência" loading="lazy">
+          <span>Banco de Horas e Frequência</span>
         </a>
       </div>
       <div class="icone">
-        <a href="saude-servidor.html" class="icone-link" aria-label="Saúde do servidor">
-          <img src="https://img.icons8.com/ios-filled/100/000000/heart-monitor.png" alt="Saúde do servidor" loading="lazy">
+        <a href="/src/pages/saude-servidor.html" class="icone-link" aria-label="Saúde do servidor">
+          <img src="public/icons/health.png" alt="Saúde do servidor" loading="lazy">
           <span>Saúde do Servidor</span>
         </a>
       </div>
       <div class="icone">
-        <a href="regime-disciplinar.html" class="icone-link" aria-label="Regime disciplinar">
-          <img src="https://img.icons8.com/ios-filled/100/000000/scales.png" alt="Regime disciplinar" loading="lazy">
+        <a href="/src/pages/regime-disciplinar.html" class="icone-link" aria-label="Regime disciplinar">
+          <img src="public/icons/scales.png" alt="Regime disciplinar" loading="lazy">
           <span>Regime Disciplinar</span>
         </a>
       </div>
       <div class="icone">
-        <a href="desenvolvimento-pessoas.html" class="icone-link" aria-label="Desenvolvimento de pessoas">
-          <img src="https://img.icons8.com/?size=100&id=62903&format=png&color=000000" alt="Desenvolvimento de pessoas" loading="lazy">
+        <a href="/src/pages/desenvolvimento-pessoas.html" class="icone-link" aria-label="Desenvolvimento de pessoas">
+          <img src="public/icons/development.png" alt="Desenvolvimento de pessoas" loading="lazy">
           <span>Desenvolvimento de Pessoas</span>
         </a>
       </div>
       <div class="icone">
-        <a href="beneficios-auxilios.html" class="icone-link" aria-label="Benefícios e auxílios">
-          <img src="https://img.icons8.com/ios-filled/100/000000/gift.png" alt="Benefícios e auxílios" loading="lazy">
+        <a href="/src/pages/beneficios-auxilios.html" class="icone-link" aria-label="Benefícios e auxílios">
+          <img src="public/icons/gift.png" alt="Benefícios e auxílios" loading="lazy">
           <span>Benefícios e Auxílios</span>
         </a>
       </div>
       <div class="icone">
-        <a href="concursos-processos.html" class="icone-link" aria-label="Concursos e processos seletivos">
-          <img src="https://img.icons8.com/ios-filled/100/000000/checked-checkbox.png" alt="Concursos e processos seletivos" loading="lazy">
+        <a href="/src/pages/concursos-processos.html" class="icone-link" aria-label="Concursos e processos seletivos">
+          <img src="public/icons/checkbox.png" alt="Concursos e processos seletivos" loading="lazy">
           <span>Concursos e Processos Seletivos</span>
         </a>
       </div>
       <div class="icone">
-        <a href="direitos-estatutarios.html" class="icone-link" aria-label="Direitos estatutários">
-          <img src="https://img.icons8.com/?size=100&id=sGNEMWKG3WcQ&format=png&color=000000" alt="Direitos estatutários" loading="lazy">
+        <a href="/src/pages/requerimentos.html" class="icone-link" aria-label="Requerimentos">
+          <img src="public/icons/requerimento.png" alt="Requerimentos" loading="lazy">
+          <span>Requerimentos</span>
+        </a>
+      </div>
+      <div class="icone">
+        <a href="/src/pages/direitos-estatutarios.html" class="icone-link" aria-label="Direitos estatutários">
+          <img src="public/icons/statutory.png" alt="Direitos estatutários" loading="lazy">
           <span>Direitos Estatutários</span>
         </a>
       </div>
       <div class="icone">
-        <a href="beneficios-previdenciarios.html" class="icone-link" aria-label="Benefícios previdenciários">
-          <img src="https://img.icons8.com/ios-filled/100/000000/safe.png" alt="Benefícios previdenciários" loading="lazy">
+        <a href="/src/pages/beneficios-previdenciarios.html" class="icone-link" aria-label="Benefícios previdenciários">
+          <img src="public/icons/safe.png" alt="Benefícios previdenciários" loading="lazy">
           <span>Benefícios Previdenciários</span>
         </a>
       </div>
       <div class="icone">
-        <a href="desligamento.html" class="icone-link" aria-label="Desligamento">
-          <img src="https://img.icons8.com/?size=100&id=ZfSzIL27aSn1&format=png&color=000000" alt="Desligamento" loading="lazy">
+        <a href="/src/pages/desligamento.html" class="icone-link" aria-label="Desligamento">
+          <img src="public/icons/logout.png" alt="Desligamento" loading="lazy">
           <span>Desligamento</span>
         </a>
       </div>
@@ -287,13 +268,13 @@
           <div class="news-date">15 Jan 2025</div>
           <h3>Novo Sistema de Férias</h3>
           <p>Sistema de solicitação de férias totalmente reformulado com interface mais intuitiva.</p>
-          <a href="ferias.html" class="news-link">Saiba mais</a>
+          <a href="pages/ferias.html" class="news-link">Saiba mais</a>
         </article>
         <article class="news-card">
           <div class="news-date">10 Jan 2025</div>
           <h3>Atualização Cadastral</h3>
           <p>Importante: Todos os servidores devem atualizar seus dados cadastrais até o final do mês.</p>
-          <a href="atualizacao-cadastral.html" class="news-link">Atualizar agora</a>
+          <a href="pages/atualizacao-cadastral.html" class="news-link">Atualizar agora</a>
         </article>
       </div>
     </section>
@@ -319,32 +300,32 @@
         <h3>Redes Sociais</h3>
         <div class="footer-social">
           <a href="https://facebook.com" target="_blank" title="Facebook" aria-label="Facebook" rel="noopener">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
           </a>
           <a href="https://instagram.com" target="_blank" title="Instagram" aria-label="Instagram" rel="noopener">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5zm4.25 3.75a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 1.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-2.25a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
             </svg>
           </a>
           <a href="https://youtube.com" target="_blank" title="YouTube" aria-label="YouTube" rel="noopener">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
           </a>
           <a href="https://x.com" target="_blank" title="X" aria-label="X" rel="noopener">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
           </a>
           <a href="https://tiktok.com" target="_blank" title="TikTok" aria-label="TikTok" rel="noopener">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-2.245 6.17 6.17 0 0 1-.828-3.441h-2.862v13.552a2.913 2.913 0 0 1-2.847 2.966 2.895 2.895 0 0 1-2.932-2.84c0-1.506 1.227-2.742 2.74-2.877V8.68c-2.925.139-5.344 2.5-5.344 5.446 0 3.018 2.45 5.467 5.468 5.467 3.018 0 5.468-2.449 5.468-5.467V7.487a8.75 8.75 0 0 0 4.106 1.022V6.686z"/>
             </svg>
           </a>
           <a href="https://linkedin.com" target="_blank" title="LinkedIn" aria-label="LinkedIn" rel="noopener">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
@@ -363,7 +344,7 @@
       <span id="dark-mode-icon">&#9789;</span>
     </button>
     <button id="back-to-top-btn" title="Voltar ao topo" aria-label="Voltar ao topo" tabindex="0" style="display: none;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M18 15l-6-6-6 6"/>
       </svg>
     </button>
@@ -372,229 +353,8 @@
   <!-- Notification Toast -->
   <div id="notification-toast" class="notification-toast" role="alert" aria-live="polite"></div>
 
-  <script>
-    // Performance: Hide loading overlay when page is ready
-    window.addEventListener('load', function() {
-      const loadingOverlay = document.getElementById('loading-overlay');
-      if (loadingOverlay) {
-        loadingOverlay.style.opacity = '0';
-        setTimeout(() => {
-          loadingOverlay.style.display = 'none';
-        }, 300);
-      }
-    });
-
-    // Imagens do carrossel
-    const images = [
-      'https://github.com/tavysmikael/colaboradoragr/blob/35dd20706c02d12cf7c279e4f4f27f98cfa9a11c/banner1.png?raw=true',
-      'https://github.com/tavysmikael/colaboradoragr/blob/35dd20706c02d12cf7c279e4f4f27f98cfa9a11c/banner2.png?raw=true',
-      'https://github.com/tavysmikael/colaboradoragr/blob/ac66e0442b887f20ad8699d5b62a44433930b6ae/teste.png?raw=true'
-    ];
-    let currentIndex = 0;
-    const imgElement = document.getElementById('dynamicImage');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    let intervalId;
-
-    function showImage(index) {
-      imgElement.src = images[index];
-      currentIndex = index;
-    }
-
-    function showNext() {
-      showImage((currentIndex + 1) % images.length);
-    }
-
-    function showPrev() {
-      showImage((currentIndex - 1 + images.length) % images.length);
-    }
-
-    function startAutoSlide() {
-      intervalId = setInterval(showNext, 6000);
-    }
-
-    function stopAutoSlide() {
-      clearInterval(intervalId);
-    }
-
-    prevBtn.addEventListener('click', () => {
-      stopAutoSlide();
-      showPrev();
-      startAutoSlide();
-    });
-    nextBtn.addEventListener('click', () => {
-      stopAutoSlide();
-      showNext();
-      startAutoSlide();
-    });
-
-    startAutoSlide();
-
-    // MENU SUSPENSO HAMBURGER
-    const menuHamburger = document.getElementById('menuHamburger');
-    const menuDropdown = document.getElementById('menuDropdown');
-    
-    document.addEventListener('click', function(e) {
-      if (menuDropdown.classList.contains('show') && !menuDropdown.contains(e.target) && e.target !== menuHamburger && !menuHamburger.contains(e.target)) {
-        menuDropdown.classList.remove('show');
-        menuHamburger.setAttribute('aria-expanded', 'false');
-      }
-    });
-    
-    menuHamburger.addEventListener('click', function(e) {
-      e.preventDefault();
-      menuDropdown.classList.toggle('show');
-      const isExpanded = menuDropdown.classList.contains('show');
-      menuHamburger.setAttribute('aria-expanded', isExpanded.toString());
-    });
-    
-    menuHamburger.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        menuDropdown.classList.toggle('show');
-        const isExpanded = menuDropdown.classList.contains('show');
-        menuHamburger.setAttribute('aria-expanded', isExpanded.toString());
-      }
-    });
-
-    // DARK MODE ICON SWITCH
-    function updateDarkModeIcon() {
-      const icon = document.getElementById('dark-mode-icon');
-      if (document.body.classList.contains('dark-mode')) {
-        icon.innerHTML = '&#9728;';
-      } else {
-        icon.innerHTML = '<svg width="30" height="30" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>';
-      }
-    }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      menuDropdown.classList.remove('show');
-      menuHamburger.setAttribute('aria-expanded', 'false');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-      updateDarkModeIcon();
-      
-      // Analytics event
-      gtag('event', 'dark_mode_toggle', {
-        'event_category': 'ui',
-        'event_label': document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled'
-      });
-    }
-
-    // Persistência do modo escuro
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
-    }
-    updateDarkModeIcon();
-
-    // Botão flutuante de dark mode
-    document.getElementById('dark-mode-btn').addEventListener('click', function(e) {
-      toggleDarkMode();
-    });
-
-    // Back to top button
-    const backToTopBtn = document.getElementById('back-to-top-btn');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.style.display = 'block';
-      } else {
-        backToTopBtn.style.display = 'none';
-      }
-    });
-
-    backToTopBtn.addEventListener('click', function() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }); 
-
-    // Quick actions
-    function quickAction(action) {
-      let url = '';
-      let message = '';
-      
-      switch(action) {
-        case 'ferias':
-          url = 'ferias.html';
-          message = 'Redirecionando para solicitação de férias...';
-          break;
-        case 'documentos':
-          url = 'documentos.html';
-          message = 'Redirecionando para documentos...';
-          break;
-        case 'agenda':
-          url = 'agenda.html';
-          message = 'Redirecionando para agenda...';
-          break;
-      }
-      
-      showNotification(message, 'info');
-      setTimeout(() => {
-        window.location.href = url;
-      }, 1000);
-    }
-
-    // Notification system
-    function showNotification(message, type = 'info') {
-      const toast = document.getElementById('notification-toast');
-      toast.textContent = message;
-      toast.className = `notification-toast ${type}`;
-      toast.style.display = 'block';
-      
-      setTimeout(() => {
-        toast.style.display = 'none';
-      }, 3000);
-    }
-
-    function showNotifications() {
-      showNotification('Sistema de notificações em desenvolvimento', 'info');
-    }
-
-    function handleLogin() {
-      showNotification('Sistema de login em desenvolvimento', 'info');
-    }
-
-    // Acessibilidade: navegação por teclado
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Tab') {
-        document.body.classList.add('user-is-tabbing');
-      }
-    });
-    
-    document.addEventListener('mousedown', function() {
-      document.body.classList.remove('user-is-tabbing');
-    });
-
-    // Service Worker Registration for PWA
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(registration) {
-            console.log('SW registered: ', registration);
-          })
-          .catch(function(registrationError) {
-            console.log('SW registration failed: ', registrationError);
-          });
-      });
-    }
-
-    // Analytics: Track page views
-    gtag('event', 'page_view', {
-      'page_title': 'Home',
-      'page_location': window.location.href
-    });
-
-    // Track user interactions
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.icone-link')) {
-        const linkText = e.target.closest('.icone-link').querySelector('span').textContent;
-        gtag('event', 'click', {
-          'event_category': 'navigation',
-          'event_label': linkText
-        });
-      }
-    });
-  </script>
+  <!-- Index content, e.g., <div id="dynamicImage"></div>, <button id="prevBtn">, <button id="nextBtn"> -->
+  <script type="module" src="/src/scripts/main.js"></script> 
+  
 </body>
-</html> 
+</html>

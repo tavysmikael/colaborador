@@ -1,0 +1,403 @@
+:root {
+  --primary-color: #3b82f6;
+  --secondary-color: #6b7280;
+  --bg-color: #f9fafb;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+  --accent-color: #10b981;
+  --text-color: #1f2937;
+  --success-color: #10b981;
+}
+
+.dark-mode {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --border-color: #475569;
+  --text-color: #f1f5f9;
+  --secondary-color: #94a3b8;
+  --primary-color: #60a5fa;
+  --accent-color: #34d399;
+  --success-color: #34d399;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  z-index: 1000;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.organograma-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  overflow-x: auto;
+}
+
+.main-title {
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.organograma {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  min-width: 800px;
+}
+
+.organograma::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 92px;
+  width: 3px;
+  height: 338px;
+  background: var(--secondary-color);
+  transform: translateX(-1.5px);
+  z-index: -1;
+}
+
+.organograma-node {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  padding: 15px 20px;
+  text-align: center;
+  min-width: 220px;
+  font-weight: 600;
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.organograma-node:hover,
+.organograma-node:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.organograma-presidente {
+  background: var(--success-color);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 25px 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.organograma-presidente:hover,
+.organograma-presidente:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.organograma-staff-container {
+  display: flex;
+  min-width: 600px;
+  justify-content: center;
+  gap: 200px;
+  position: relative;
+  width: 100%;
+}
+
+.organograma-staff-col {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  position: relative;
+}
+
+.organograma-staff-col .organograma-node {
+  background: linear-gradient(135deg, #e7f4e4, #d4e8d1);
+  border: 2px solid #97c289;
+  border-radius: 10px;
+  padding: 15px 20px;
+  text-align: center;
+  min-width: 200px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(151, 194, 137, 0.2);
+}
+
+.organograma-staff-col .organograma-node:hover,
+.organograma-staff-col .organograma-node:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(151, 194, 137, 0.3);
+  background: linear-gradient(135deg, #d4e8d1, #c1dcc0);
+}
+
+.organograma-staff-col .organograma-node::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  background: var(--secondary-color);
+  width: 130px;
+  transform: translateY(-50%);
+}
+
+.organograma-staff-col:first-child .organograma-node::before {
+  left: 100%;
+}
+
+.organograma-staff-col:last-child .organograma-node::before {
+  right: 100%;
+}
+
+.organograma-diretorias {
+  display: flex;
+  justify-content: space-around;
+  gap: 108px;
+  min-width: 800px;
+  position: relative;
+  width: 80%;
+}
+
+.organograma-diretorias::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 55%;
+  height: 3px;
+  background: var(--secondary-color);
+  transform: translateX(-50%);
+}
+
+.organograma-coluna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 45%;
+}
+
+.organograma-coluna .organograma-node {
+  background: linear-gradient(135deg, #f0f8f0, #e5f2e5);
+  border: 2px solid #7a9f6e;
+  border-radius: 10px;
+  padding: 18px 25px;
+  text-align: center;
+  min-width: 240px;
+  font-size: 1rem;
+  font-weight: 700;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(122, 159, 110, 0.2);
+}
+
+.organograma-coluna .organograma-node:hover,
+.organograma-coluna .organograma-node:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(122, 159, 110, 0.3);
+  background: linear-gradient(135deg, #e5f2e5, #d9ebd9);
+}
+
+.organograma-coluna > .organograma-node::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -22px;
+  width: 3px;
+  height: 22px;
+  background: var(--secondary-color);
+  transform: translateX(-1.5px);
+}
+
+.organograma-coluna > .organograma-node::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  width: 3px;
+  height: 30px;
+  background: var(--secondary-color);
+  transform: translateX(-1.5px);
+}
+
+.organograma-gerencias > .organograma-node::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  width: 3px;
+  height: 30px;
+  background: var(--secondary-color);
+  transform: translateX(-1.5px);
+}
+
+.organograma-gerencias > .organograma-node:last-child::after {
+  display: none;
+}
+
+.organograma-gerencias {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  position: relative;
+  padding-left: 0;
+}
+
+.organograma-gerencias .organograma-node {
+  background: linear-gradient(135deg, #f8fcf8, #f0f8f0);
+  border: 2px solid #5a7a4e;
+  border-radius: 8px;
+  padding: 12px 18px;
+  text-align: center;
+  min-width: 180px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(90, 122, 78, 0.15);
+}
+
+.organograma-gerencias .organograma-node:hover,
+.organograma-gerencias .organograma-node:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(90, 122, 78, 0.25);
+  background: linear-gradient(135deg, #f0f8f0, #e8f4e8);
+}
+
+@media (max-width: 1200px) {
+  .organograma-container {
+    padding: 20px 10px;
+  }
+
+  .organograma {
+    min-width: 600px;
+  }
+
+  .organograma-staff-container {
+    gap: 100px;
+  }
+
+  .organograma-diretorias {
+    gap: 50px;
+    min-width: 600px;
+  }
+
+  .organograma-coluna {
+    width: 48%;
+  }
+}
+
+@media (max-width: 768px) {
+  .organograma {
+    min-width: 400px;
+  }
+
+  .organograma-staff-container {
+    gap: 50px;
+    min-width: 400px;
+  }
+
+  .organograma-diretorias {
+    min-width: 400px;
+    gap: 30px;
+  }
+
+  .organograma-presidente,
+  .organograma-staff-col .organograma-node,
+  .organograma-coluna .organograma-node,
+  .organograma-gerencias .organograma-node {
+    min-width: 180px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .organograma {
+    min-width: 300px;
+  }
+
+  .organograma-staff-container {
+    gap: 30px;
+    min-width: 300px;
+  }
+
+  .organograma-diretorias {
+    min-width: 300px;
+    gap: 20px;
+  }
+
+  .organograma-presidente,
+  .organograma-staff-col .organograma-node,
+  .organograma-coluna .organograma-node,
+  .organograma-gerencias .organograma-node {
+    min-width: 160px;
+    padding: 12px 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .organograma-node,
+  .organograma-presidente,
+  .organograma-staff-col .organograma-node,
+  .organograma-coluna .organograma-node,
+  .organograma-gerencias .organograma-node {
+    transition: none;
+  }
+}
+
+.dark-mode .main-title {
+  color: var(--text-color);
+}
+
+.dark-mode .organograma-presidente {
+  background: linear-gradient(135deg, #0f5a3f, #0a3d2a);
+  border-color: #0a3d2a;
+}
+
+.dark-mode .organograma-staff-col .organograma-node {
+  background: linear-gradient(135deg, #2d3748, #4a5568);
+  border-color: #4a5568;
+  color: var(--text-color);
+}
+
+.dark-mode .organograma-coluna .organograma-node {
+  background: linear-gradient(135deg, #4a5568, #718096);
+  border-color: #718096;
+  color: var(--text-color);
+}
+
+.dark-mode .organograma-gerencias .organograma-node {
+  background: linear-gradient(135deg, #718096, #a0aec0);
+  border-color: #a0aec0;
+  color: var(--text-color);
+}
