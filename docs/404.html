@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        :root {
+            --color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-size: 20px;
+            background: #1a1a1a; 
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: transparent;
+            color: white; 
+            font-family: arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .content {
+            position: relative;
+            width: 600px;
+            max-width: 100%;
+            margin: 20px;
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: -10px 10px 67px -12px rgba(0,0,0,0.4);
+            opacity: 0;
+            animation: apparition 0.8s 1.2s cubic-bezier(0.39,0.575,0.28,0.995) forwards;
+            backdrop-filter: blur(5px); /* Glassy effect for content */
+            z-index: 1; /* Ensure content is above particles */
+        }
+
+        .content p {
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.1rem;
+            color: white;
+        }
+
+        .content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.5rem 1rem;
+            border: 3px solid white;
+            background: transparent;
+            font-size: 1rem;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .content button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            pointer-events: none;
+            color: white; /* White particles for star-like effect */
+            opacity: 0.6; /* Slightly more transparent for depth */
+            z-index: 0; /* Ensure particles are behind content */
+        }
+
+        @keyframes apparition {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(180px); }
+        }
+
+        @keyframes floatReverse {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-180px); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(28px); }
+        }
+
+        @keyframes floatReverse2 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-28px); }
+        }
+    </style>
+</head>
+<body>
+    <main class="container" id="container">
+        <article class="content">
+            <p>Parece que você se perdeu no limite do universo
+            <p><strong>404</strong></p>
+            <p>E o desenvolvedor foi abduzido, mas não se preocupe você ainda pode voltar e se salvar.</p>
+            <p><button onclick="window.location.href='index.html'">Voltar para a página inicial</button></p>
+        </article>
+    </main>
+     <script>
+        const animations = ['float', 'floatReverse', 'float2', 'floatReverse2'];
+        const container = document.getElementById('container');
+        const characters = ['4', '0']; // Array for random selection of "4" or "0"
+
+        for (let i = 1; i <= 500; i++) {
+            const size = Math.random() * 20 + 10; // Random size between 10 and 30px
+            const blur = i * 0.02; // Incremental blur
+            const speed = Math.random() * 20 + 20; // Random speed between 20 and 40s
+            const delay = Math.random() * 1; // Random delay between 0 and 1s
+            const anim = animations[Math.floor(Math.random() * animations.length)];
+            const top = (Math.random() * 100) / (100 + size / 8) * 100; // Adjusted random top position
+            const left = (Math.random() * 100) / (100 + size / 10) * 100; // Adjusted random left position
+            const char = characters[Math.floor(Math.random() * characters.length)]; // Randomly select "4" or "0"
+
+            const particle = document.createElement('span');
+            particle.className = 'particle';
+            particle.textContent = char; 
+            particle.style.cssText = `
+                top: ${top}%;
+                left: ${left}%;
+                font-size: ${size}px;
+                filter: blur(${blur}px);
+                animation: ${speed}s ${anim} infinite;
+                animation-delay: ${delay}s;
+            `;
+            container.appendChild(particle);
+        }
+    </script>
+</body>
+
+</html>
