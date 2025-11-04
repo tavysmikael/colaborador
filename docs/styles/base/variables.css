@@ -1,0 +1,28 @@
+/* Importação da fonte */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Variáveis CSS para cores e configurações repetidas */
+:root {
+  --primary-color: #104783;
+  --accent-color: #2CB67D;
+  --secondary-color: #4299e1;
+  --warning-color: #ed8936;
+  --error-color: #f56565;
+  --success-color: #2CB67D;
+  --info-color: #065fd4;
+  --light-bg: rgba(255, 255, 255, 0.8);
+  --dark-bg: rgba(18, 18, 18, 0.8);
+  --light-border: rgba(0, 0, 0, 0.1);
+  --dark-border: rgba(255, 255, 255, 0.1);
+  --text-light: #fff;
+  --text-dark: #222;
+  --text-secondary: #4a5568;
+  --text-secondary-dark: #e2e8f0;
+  --shadow-light: 0 2px 6px rgba(0, 0, 0, 0.1); 
+  --shadow-dark: 0 2px 6px rgba(0, 0, 0, 0.3); 
+  --clock-bg: #f4f4f4; 
+  --clock-number: #E0E0E0; 
+  --clock-shade: #e0e0e0; 
+  --clock-text: #333333; 
+  --clock-separator: #333333; 
+}

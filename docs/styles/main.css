@@ -1,0 +1,31 @@
+/* BASE - O alicerce de tudo */
+@import url("base/reset.css");
+@import url("base/variables.css");
+@import url("base/typography.css");
+@import url("base/global.css");
+
+/* COMPONENTS - Blocos reutilizáveis */
+@import url("components/header.css");
+@import url("components/footer.css");
+@import url("components/button.css");
+@import url('./components/notification.css');
+@import url('./components/card.css');
+@import url('./components/form.css');
+@import url('./components/loading.css');
+@import url("components/carousel.css");
+@import url("components/accordion.css");
+@import url("components/breadcrumb.css");
+
+/* PAGES - Estilos específicos para cada página */
+@import url("pages/calendar.css");
+@import url("pages/documents.css");
+@import url("pages/desenvolvimento-pessoas.css");
+@import url("pages/gallery.css");  
+@import url("pages/kanban.css");
+@import url("pages/index.css");
+@import url("pages/integrantes-agr.css");
+@import url("pages/edificio.css");  
+@import url("pages/profile.css");
+@import url("pages/redirect.css");
+@import url("pages/jornada.css");
+@import url("pages/requerimentos.css");

@@ -1,0 +1,109 @@
+/* frontend/src/styles/components/notification.css */
+.alert {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--light-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-left: 4px solid var(--info-color);
+  border: 1px solid #ffeeba;
+  border-radius: 6px;
+  line-height: 1.6;
+  box-shadow: var(--shadow-light);
+  color: var(--text-dark);
+}
+
+.alert svg {
+  flex-shrink: 0;
+  color: var(--info-color);
+}
+
+.alert strong {
+  color: var(--primary-color);
+}
+
+.alert div {
+  flex-grow: 1;
+}
+
+.notification-toast {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: var(--light-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text-dark);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  display: none;
+  max-width: 300px;
+  border-left: 4px solid var(--info-color);
+}
+
+.notification-toast.info {
+  border-left-color: var(--info-color);
+}
+
+.notification-toast.success {
+  border-left-color: var(--success-color);
+}
+
+.notification-toast.warning {
+  border-left-color: var(--warning-color);
+}
+
+.notification-toast.error {
+  border-left-color: var(--error-color);
+}
+
+/* --- Dark Mode Notifications --- */
+body.dark-mode .alert {
+  background: var(--dark-bg);
+  color: var(--text-light);
+  box-shadow: var(--shadow-dark);
+}
+
+body.dark-mode .alert svg {
+  color: var(--accent-color);
+}
+
+body.dark-mode .alert strong {
+  color: var(--accent-color);
+}
+
+body.dark-mode .notification-toast {
+  background: var(--dark-bg);
+  color: var(--text-light);
+  box-shadow: var(--shadow-dark);
+}
+
+body.dark-mode .notification-toast.info {
+  border-left-color: var(--info-color);
+}
+
+body.dark-mode .notification-toast.success {
+  border-left-color: #48bb78;
+}
+
+body.dark-mode .notification-toast.warning {
+  border-left-color: #f6ad55;
+}
+
+body.dark-mode .notification-toast.error {
+  border-left-color: #fc8181;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+  .notification-toast {
+    right: 0.625rem;
+    left: 0.625rem;
+    max-width: none;
+  }
+}
